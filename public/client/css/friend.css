@@ -1,0 +1,158 @@
+
+.main{
+    padding: 40px 0;
+}
+.main > h1{
+    text-align: center;
+    color: var(--color-blue);
+    margin-bottom: 32px;
+}
+.main .friend{
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main .form-search{
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #fff;
+}
+.main .form-search .input-search-user{
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #fff;
+    line-height: 30px;
+    padding: 2px 0;
+    padding-left: 15px;
+    padding-right: 40px;
+    font-size: 20px;
+}
+.main .form-search button{
+    border: none;
+    background: #555;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.main .form-search button i{
+    line-height: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.main .inner-users{
+    margin-top: 50px;
+}
+.main .inner-users .box-user{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 10px;
+    position: relative;
+}
+.main .inner-users .box-user > span{
+    width: 12px;
+    height: 12px;
+    background: #00d800;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    display: none;
+}
+.main .inner-users .box-user .online{
+    display: block;
+}
+.main .inner-users .inner-avatar{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.main .inner-users .inner-avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main .inner-users .inner-name{
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+    width: 95px;
+}
+.main .inner-button{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.main .inner-button.cancel .add-btn,
+.main .inner-button.cancel .accept-btn, 
+.main .inner-button.cancel .refuse-btn,
+.main .inner-button.cancel .unfriend-btn{
+    display: none;
+}
+.main .inner-button.add .cancel-btn,
+.main .inner-button.add .accept-btn, 
+.main .inner-button.add .refuse-btn,
+.main .inner-button.add .unfriend-btn{
+    display: none;
+}
+.main .inner-button.accept .cancel-btn,
+.main .inner-button.accept .add-btn,
+.main .inner-button.accept .refused-btn,
+.main .inner-button.accept .accepted-btn,
+.main .inner-button.accept .unfriend-btn{
+    display: none;
+}
+.main .inner-button.refused .accept-btn,
+.main .inner-button.refused .refuse-btn,
+.main .inner-button.refused .accepted-btn{
+    display: none;
+}
+.main .inner-button.accepted .accept-btn,
+.main .inner-button.accepted .refuse-btn,
+.main .inner-button.accepted .refused-btn{
+    display: none;
+}
+.main .inner-button.unfriend .accept-btn,
+.main .inner-button.unfriend .add-btn,
+.main .inner-button.unfriend .cancel-btn,
+.main .inner-button.unfriend .refuse-btn,
+.main .inner-button.unfriend .unfriended-btn{
+    display: none;
+}
+.main .inner-button.unfriended .unfriend-btn{
+    display: none;
+}
+
+.main .inner-button.cancel .cancel-btn{
+    display: inline-block;
+}
+.main .inner-button.add .add-btn{
+    display: inline-block;
+}
+.main .inner-button.accept .accept-btn,
+.main .inner-button.accept .refuse-btn{
+    display: inline-block;
+}
+.main .inner-button.refused .refused-btn{
+    display: inline-block;
+}
+.main .inner-button.accepted .accepted-btn{
+    display: inline-block;
+}
+.main .inner-button.unfriend .unfriend-btn{
+    display: inline-block;
+}
+.main .inner-button.unfriended .unfriended-btn{
+    display: inline-block;
+}

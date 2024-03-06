@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+
+block style 
+    link(rel="stylesheet", href="/client/css/user.css")
+
+block main
+    .container
+        .row.justify-content-center
+            .col-xl-6
+                div(class="user-box login-box mt-5")
+                    h1(class="text-center") Đăng nhập
+                    form(
+                        action="/user/login"
+                        method="POST"
+                    )
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="text"
+                                name="email"
+                                id="login-email"
+                                required
+                            )
+                            div(class="label") Email
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="password"
+                                name="password"
+                                id="login-password"
+                                required
+                            )
+                            div(class="label") Mật khẩu
+                        div(class="my-3 d-flex justify-content-between")
+                            div(class="remember-password")
+                                input(type="checkbox" id="remember-user" name="remember")
+                                label(for="remember-user" class="mx-2") Nhớ tài khoản
+                            div(class="forgot-password")
+                                a(href="/user/password/forgot") Quên mật khẩu? 
+                        div(class="my-3")
+                            button(type="submit" class="btn btn-primary w-100") Đăng nhập
+                    p(class="text-center") Chưa có tài khoản? 
+                        a(href="/user/register") Đăng ký   
+block script 
+    script(src="/client/js/user.js")  
