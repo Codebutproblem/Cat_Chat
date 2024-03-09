@@ -1,23 +1,24 @@
 const Chat = require("../../models/chat.model");
 const User = require("../../models/user.model");
 const Roomchat = require("../../models/room-chat.model");
+const Stranger = require("../../models/stranger.model");
 const Format = require("../../helpers/format");
 const chatSocket = require("../../socket/client/chat.socket");
+const Pair = require("../../helpers/pair");
 module.exports.index = async (req, res) => {
     const room_id = req.params.room_id;
     const idA = res.locals.user.id;
-    // await Chat.deleteMany({});
-    chatSocket(res, room_id);
+    chatSocket(res, room_id, "friend");
     const chats = await Chat.find({
         room_chat_id: room_id,
         deleted: false
     });
-    
+
     const roomchat = await Roomchat.findOne({
         _id: room_id,
         deleted: false
     });
-    if(!roomchat){
+    if (!roomchat) {
         res.redirect("back");
         return;
     }
@@ -25,7 +26,7 @@ module.exports.index = async (req, res) => {
     const userB = await User.findOne({
         _id: idB
     }).select("-password -tokenUser");
-    for(const chat of chats){
+    for (const chat of chats) {
         const infoUser = await User.findOne({
             _id: chat.user_id
         });
@@ -36,5 +37,79 @@ module.exports.index = async (req, res) => {
         pageTitle: "Cat Chat",
         chats: chats,
         friend: userB
+    });
+}
+
+module.exports.stranger = async (req, res) => {
+    _io
+    res.render("client/pages/chat/stranger", {
+        pageTitle: "Cat Chat"
+    });
+}
+module.exports.inQueue = async (req, res) => {
+    const idA = res.locals.user.id;
+    const isAinQueue = await Stranger.findOne({ user_id: idA });
+    if (!isAinQueue) {
+        const stranger = new Stranger({ user_id: idA });
+        await stranger.save();
+        const idB = await Pair(idA);
+        if(idB){
+            const roomchat = new Roomchat({
+                typeRoom: "temporary",
+                users:[
+                    {
+                        user_id: idA,
+                        role: "superAdmin"
+                    },
+                    {
+                        user_id: idB,
+                        role: "superAdmin"
+                    }
+                ]
+            });
+            await roomchat.save();
+            _io.once("connection", (socket)=>{
+                _io.emit("FOUND_STRANGER", roomchat.id);
+            })
+        }
+        _io.once("connection", (socket)=>{
+            socket.on("JOIN_ROOM", async (room_id)=>{
+                const roomchat = await Roomchat.findOne({_id: room_id});
+                for(const user of roomchat.users){
+                    await Stranger.deleteOne({user_id: user.user_id});
+                }
+                socket.emit("JOIN_NOW", room_id);
+            });
+        })
+        res.render("client/pages/chat/in-queue",{
+            pageTitle: "Loading..."
+        });
+    }
+    else {
+        await Stranger.deleteOne({user_id: idA});
+        res.redirect("/chat/stranger");
+    }
+}
+module.exports.chatWStranger = async (req, res) => {
+    const room_id = req.params.room_id;
+    const idA = res.locals.user.id;
+    console.log(idA)
+    chatSocket(res, room_id, "temporary");
+    const roomchat = await Roomchat.findOne({
+        _id: room_id,
+        deleted: false
+    });
+    if (!roomchat) {
+        res.redirect("/chat/stranger");
+        return;
+    }
+    const idB = roomchat.users.find(user => user.user_id != idA).user_id;
+    const userB = await User.findOne({
+        _id: idB
+    }).select("-password -tokenUser");
+    res.render("client/pages/chat/stranger-chat", {
+        pageTitle: "Cat Chat",
+        stranger : userB,
+        room_id: room_id
     });
 }

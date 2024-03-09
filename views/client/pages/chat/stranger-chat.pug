@@ -8,31 +8,20 @@ block style
     link(rel="stylesheet", href="/client/css/main.css")
 block main
     .main
+        div(room-id= room_id)
         .chat(my-id=user.id)
             .inner-head
-                if(friend)
+                if(stranger)
                     .inner-avatar 
                         .border-image 
-                            if (friend.gender == "male")
+                            if (stranger.gender == "male")
                                 img(src="/client/images/male-default.png", alt="default-male")
                             else 
                                 img(src="/client/images/female-default.png", alt="default-female")
-                        span(class=(friend.statusOnline == "online" ? "online" : ""))
-                    .inner-name #{friend.fullName}
+                        span(class=(stranger.statusOnline == "online" ? "online" : ""))
+                    .inner-name #{stranger.fullName}
             .inner-body
-                if (chats)
-                    each chat,index in chats
-                        div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-comming"))
-                            if (chat.user_id != user.id)
-                                .inner-name #{chat.infoUser.fullName}
-                            if (chat.content)
-                                .inner-content 
-                                    .message #{chat.content}
-                                    .time #{chat.timeDisplay}
-                            if (chat.images && chat.images.length > 0)
-                                .inner-images
-                                    each image in chat.images 
-                                        img(src=image)
+
             .inner-foot
                 .inner-preview-images 
                     div(class="custom-file-container" data-upload-id="upload-images")

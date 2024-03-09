@@ -74,7 +74,6 @@ module.exports.friend = async (req, res) => {
         const me = user.friendList.find((friend)=> friend.user_id == thisUser.id);
         if(me){
             user.our_room_id = me.room_chat_id;
-            console.log(user.our_room_id);
         } 
     }
     res.render("client/pages/friend/list-friend",{

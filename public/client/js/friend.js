@@ -100,8 +100,10 @@ socket.on("SERVER_RETURN_STATUS" , (data) => {
     for(const symbol of onlineSymbols){
         const userId = symbol.getAttribute("user-id");
         if(userId == data.userId){
-            if (data.status == "online" && !symbol.classList.contains("online")){
-                symbol.classList.add("online")
+            if (data.status == "online"){
+                if(!symbol.classList.contains("online")){
+                    symbol.classList.add("online");
+                }
             }
             else{
                 symbol.classList.remove("online");

@@ -53,6 +53,7 @@
     overflow: auto;
     color: #fff;
     padding: 5px;
+    position: relative;
 }
 .main .chat .inner-foot{
     padding: 13px;
@@ -166,6 +167,14 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.main .chat .inner-body .stranger-chat{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .chat .inner-preview-images{
     position: absolute;
     width: 100%;

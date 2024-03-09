@@ -16,6 +16,6 @@ const roomchatSchema = new mongoose.Schema({
     deletedAt: Date
 }, { timestamps: true });
 
-const Roomchat = mongoose.model("Roomchat", roomchatSchema, "room_chat");
+const Roomchat = mongoose.model("Roomchat", roomchatSchema, "room-chat");
 
 module.exports = Roomchat;

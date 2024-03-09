@@ -104,8 +104,6 @@ module.exports = (res) => {
 
             const roomchat = new Roomchat(dataRoom);
             await roomchat.save();
-            console.log(await Roomchat.findOne({_id: roomchat.id}));
-
             const existAinB = await User.findOne({
                 _id: idB,
                 "friendList.user_id": idA
@@ -151,13 +149,23 @@ module.exports = (res) => {
 
         socket.on("CLIENT_UNFRIEND", async (idB) => {
             const idA = res.locals.user.id;
+
+            const userA = await User.findOne({
+                _id: idA
+            });
+            const room_id = userA.friendList.find(friend => friend.user_id == idB).room_chat_id;
+
+            await Roomchat.deleteOne({
+                _id: room_id
+            });
+
             const existAinB = await User.findOne({
                 _id: idB,
                 "friendList.user_id": idA
             });
             if (existAinB) {
                 await User.updateOne({ _id: idB }, {
-                    $pull: { friendList: { user_id: idA, room_chat_id: "" } }
+                    $pull: { friendList: { user_id: idA, room_chat_id: room_id } }
                 });
             }
             const existBinA = await User.findOne({
@@ -167,7 +175,7 @@ module.exports = (res) => {
 
             if (existBinA) {
                 await User.updateOne({ _id: idA }, {
-                    $pull: { friendList: { user_id: idB, room_chat_id: "" } }
+                    $pull: { friendList: { user_id: idB, room_chat_id: room_id } }
                 });
             }
         });

@@ -134,6 +134,7 @@ if (emojiPicker) {
 
 // SERVER RETURN TYPING
 socket.on("SERVER_RETURN_TYPING", (data) => {
+    console.log(data.type);
     const body = document.querySelector(".main .chat .inner-body");
     const existTyping = document.querySelector(".chat .inner-body .box-typing");
     switch (data.type) {
@@ -172,10 +173,22 @@ if (bodyChatPreviewImage) {
 socket.on("SERVER_RETURN_STATUS" , (data) => {
     const onlineSymbol = document.querySelector(`.inner-avatar span`);
     console.log(onlineSymbol);
-    if (data.status == "online" && !onlineSymbol.classList.contains("online")){
-        onlineSymbol.classList.add("online")
+    if (data.status == "online"){
+        if(!onlineSymbol.classList.contains("online")){
+            onlineSymbol.classList.add("online")
+        }
     }
     else{
         onlineSymbol.classList.remove("online");
     }
 });
+
+const room = document.querySelector("[room-id]");
+if(room){
+    socket.on("LEAVE_NOW",(data)=>{
+        window.location.href = "/chat/stranger";
+    });
+    window.addEventListener('beforeunload', function (e) {
+        socket.emit("CLIENT_LEAVE_ROOM", room.getAttribute("room-id"));
+    });
+}

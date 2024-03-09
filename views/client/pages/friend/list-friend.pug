@@ -16,7 +16,7 @@ block main
                     each user in users 
                         .col-md-4
                             .box-user
-                                a(href=`/chat/${user.our_room_id}` class="inner-avatar d-block")  
+                                a(href=`/chat/room/${user.our_room_id}` class="inner-avatar d-block")  
                                     img(src=(user.gender == "male" ? "/client/images/male-default.png": "/client/images/female-default.png") alt="")
                                 .inner-info 
                                     div(class="inner-name") #{user.fullName}

@@ -15,6 +15,7 @@
                         a(href="/friend/accept" class="friend-request btn btn-success me-3") Lời mời kết bạn
                             if (user.acceptFriendsList.length > 0)
                                 span #{user.acceptFriendsList.length}
+                        a(href="/chat/stranger" class="stranger-chat btn btn-light") Stranger Chat 
             .col-4
                 if (user)
                     .inner-user
