@@ -26,7 +26,15 @@ app.use(methodOverride('_method'))
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 app.use(cookieParser('333'));
-app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(session({
+    name : 'minhvu',
+    secret : '123',
+    resave :false,
+    saveUninitialized: true,
+    cookie : {
+            maxAge:(1000 * 60 * 100)
+    }      
+}));
 app.use(flash());
 app.use(express.static(`${__dirname}/public`));
 
