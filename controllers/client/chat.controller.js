@@ -85,8 +85,10 @@ module.exports.inQueue = async (req, res) => {
                     user_2: user_2
                 });
             });
-            socket.on("LEAVE_QUEUE", (userId)=>{
-                
+            socket.on("LEAVE_QUEUE", async (userId)=>{
+                await Roomchat.deleteOne({
+                    "users.user_id": userId
+                });
             });
         })
         res.render("client/pages/chat/in-queue",{
