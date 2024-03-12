@@ -9,7 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "omit=dev": {
     "body-parser": "^1.20.2",
     "cloudinary": "^2.0.1",
     "cookie-parser": "^1.4.6",
