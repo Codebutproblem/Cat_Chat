@@ -22,10 +22,7 @@
                         div(class="d-flex align-items-center justify-content-end")                                   
                             span(class="me-3") #{user.fullName}
                             div(class="avatar")
-                                if (user.gender == "male")
-                                    img(src="/client/images/male-default.png", alt="default-male")
-                                else 
-                                    img(src="/client/images/female-default.png", alt="default-female")
+                                img(src= user.avatar)
                             ul(class="list-action")
                                 li 
                                     a(href="/") <i class="fa-regular fa-user me-2"></i> Tài khoản 

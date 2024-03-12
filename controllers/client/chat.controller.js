@@ -69,7 +69,7 @@ module.exports.inQueue = async (req, res) => {
             await roomchat.save();
             _io.once("connection", (socket)=>{
                 _io.emit("FOUND_STRANGER", roomchat.id);
-            })
+            });
         }
         _io.once("connection", (socket)=>{
             socket.on("JOIN_ROOM", async (room_id)=>{
@@ -77,7 +77,16 @@ module.exports.inQueue = async (req, res) => {
                 for(const user of roomchat.users){
                     await Stranger.deleteOne({user_id: user.user_id});
                 }
-                socket.emit("JOIN_NOW", room_id);
+                const user_1 = await User.findOne({_id: roomchat.users[0].user_id}).select("-password -tokenUser");
+                const user_2 = await User.findOne({_id: roomchat.users[1].user_id}).select("-password -tokenUser");
+                socket.emit("JOIN_NOW", {
+                    room_id: room_id,
+                    user_1: user_1,
+                    user_2: user_2
+                });
+            });
+            socket.on("LEAVE_QUEUE", (userId)=>{
+                
             });
         })
         res.render("client/pages/chat/in-queue",{

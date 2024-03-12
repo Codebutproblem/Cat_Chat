@@ -13,10 +13,7 @@ block main
                 if(friend)
                     .inner-avatar 
                         .border-image 
-                            if (friend.gender == "male")
-                                img(src="/client/images/male-default.png", alt="default-male")
-                            else 
-                                img(src="/client/images/female-default.png", alt="default-female")
+                            img(src= user.avatar, alt="default-male")
                         span(class=(friend.statusOnline == "online" ? "online" : ""))
                     .inner-name #{friend.fullName}
             .inner-body

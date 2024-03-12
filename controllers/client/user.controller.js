@@ -63,6 +63,8 @@ module.exports.registerPost = async (req, res) => {
     const email = req.body.email;
     const password = md5(req.body.password);
     const gender = req.body.gender;
+    const avatar = gender == "male" ? "/client/images/male-default.png" : "/client/images/female-default.png"
+
     const emailExist = await User.findOne({
         email: email,
         deleted: false
@@ -78,7 +80,8 @@ module.exports.registerPost = async (req, res) => {
         fullName: fullName,
         email: email,
         password: password,
-        gender: gender
+        gender: gender,
+        avatar: avatar
     }
 
 

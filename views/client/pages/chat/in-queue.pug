@@ -1,8 +1,10 @@
 extends ../../layouts/default.pug
+block style 
+    link(rel="stylesheet", href="/client/css/queue.css")
 
 block main 
-    div(class="main mt-5 d-flex flex-column align-items-center" user-id=user.id)
-        h1(class="text-white mb-5") Loading...
+    div(class="main mt-5 d-flex flex-column align-items-center text-white text-center" user-id=user.id)
+        h1(class="mb-5") Loading...
         a(href="/chat/stranger", class="btn btn-warning btn-lg") Quay trở lại
 block script 
     script(src="/client/js/queue.js") 

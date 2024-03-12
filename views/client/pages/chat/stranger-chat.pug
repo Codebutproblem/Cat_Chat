@@ -14,10 +14,7 @@ block main
                 if(stranger)
                     .inner-avatar 
                         .border-image 
-                            if (stranger.gender == "male")
-                                img(src="/client/images/male-default.png", alt="default-male")
-                            else 
-                                img(src="/client/images/female-default.png", alt="default-female")
+                            img(src= user.avatar)
                         span(class=(stranger.statusOnline == "online" ? "online" : ""))
                     .inner-name #{stranger.fullName}
             .inner-body
