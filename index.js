@@ -29,9 +29,12 @@ app.set('view engine', 'pug');
 app.use(cookieParser('333'));
 app.use(session({
     secret: '333',
-    resave: false, 
-    saveUninitialized: false
-  }));
+    resave: false,
+    saveUninitialized: false,
+    store: new MemoryStore({
+        checkPeriod: 86400000 // Thời gian kiểm tra và xóa các session hết hạn (milliseconds)
+    })
+}));
 app.use(flash());
 app.use(express.static(`${__dirname}/public`));
 
