@@ -41,7 +41,6 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.stranger = async (req, res) => {
-    _io
     res.render("client/pages/chat/stranger", {
         pageTitle: "Cat Chat"
     });
@@ -93,7 +92,6 @@ module.exports.inQueue = async (req, res) => {
 module.exports.chatWStranger = async (req, res) => {
     const room_id = req.params.room_id;
     const idA = res.locals.user.id;
-    console.log(idA)
     chatSocket(res, room_id, "temporary");
     const roomchat = await Roomchat.findOne({
         _id: room_id,

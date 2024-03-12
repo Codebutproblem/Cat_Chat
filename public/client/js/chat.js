@@ -185,9 +185,6 @@ socket.on("SERVER_RETURN_STATUS" , (data) => {
 
 const room = document.querySelector("[room-id]");
 if(room){
-    socket.on("LEAVE_NOW",(data)=>{
-        window.location.href = "/chat/stranger";
-    });
     window.addEventListener('beforeunload', function (e) {
         socket.emit("CLIENT_LEAVE_ROOM", room.getAttribute("room-id"));
     });

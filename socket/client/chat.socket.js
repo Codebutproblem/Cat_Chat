@@ -35,7 +35,6 @@ module.exports = (res, room_id, typeRoom) => {
         if(typeRoom == "temporary"){
             socket.on("CLIENT_LEAVE_ROOM", async (room_id)=>{
                 await Chatroom.deleteOne({_id: room_id});
-                socket.broadcast.to(room_id).emit("LEAVE_NOW","yes");
             });
         }
 

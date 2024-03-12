@@ -44,9 +44,9 @@ database.connect();
 
 route(app);
 
-// app.get("*", (req, res)=>{
-//     res.send("<h1>404</h1>");
-// });
+app.get("*", (req, res)=>{
+    res.send("<h1>404</h1>");
+});
 
 
 server.listen(port, () => {
