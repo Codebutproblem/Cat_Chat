@@ -28,7 +28,7 @@ app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 app.use(cookieParser('333'));
 app.use(session({
-    secret: cookie_secret,
+    secret: "123",
     resave: true,
     saveUninitialized: true
 }));
