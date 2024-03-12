@@ -28,12 +28,9 @@ app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 app.use(cookieParser('333'));
 app.use(session({
-    cookie: { maxAge: 86400000 },
-    store: new MemoryStore({
-      checkPeriod: 86400000 // prune expired entries every 24h
-    }),
-    resave: false,
-    secret: 'keyboard cat'
+    secret: cookie_secret,
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(flash());
 app.use(express.static(`${__dirname}/public`));
