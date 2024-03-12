@@ -17,7 +17,7 @@ block main
                         .col-md-4
                             .box-user 
                                 .inner-avatar 
-                                    img(src=(user.gender == "male" ? "/client/images/male-default.png": "/client/images/female-default.png") alt="")
+                                    img(src=user.avatar)
                                 .inner-info 
                                     div(class="inner-name") #{user.fullName}
                                     div(class="inner-button accept" data-user-id=user.id) 

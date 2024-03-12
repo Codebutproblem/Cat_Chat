@@ -17,7 +17,7 @@ block main
                         .col-md-4
                             .box-user
                                 a(href=`/chat/room/${user.our_room_id}` class="inner-avatar d-block")  
-                                    img(src=(user.gender == "male" ? "/client/images/male-default.png": "/client/images/female-default.png") alt="")
+                                    img(src=user.avatar)
                                 .inner-info 
                                     div(class="inner-name") #{user.fullName}
                                     div(class="inner-button unfriend" data-user-id=user.id) 
