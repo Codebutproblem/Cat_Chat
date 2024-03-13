@@ -14,7 +14,7 @@ block main
                 if(stranger)
                     .inner-avatar 
                         .border-image 
-                            img(src= user.avatar)
+                            img(src= stranger.avatar)
                         span(class=(stranger.statusOnline == "online" ? "online" : ""))
                     .inner-name #{stranger.fullName}
             .inner-body

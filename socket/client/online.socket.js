@@ -1,11 +1,11 @@
 const User = require("../../models/user.model");
 module.exports.online = async (userId, status)=>{
-    _io.once("connection", async (socket) => {
-        await User.updateOne({
-            _id: userId
-        },{
-            statusOnline: status     
-        });
+    await User.updateOne({
+        _id: userId
+    },{
+        statusOnline: status     
+    });
+    _io.once("connection", (socket) => {
         socket.broadcast.emit("SERVER_RETURN_STATUS",{
             userId: userId,
             status: status
@@ -14,7 +14,7 @@ module.exports.online = async (userId, status)=>{
     });
 }
 module.exports.close = (userId)=>{
-    _io.once("connection", async (socket) => {
+    _io.once("connection", (socket) => {
         socket.on("CLOSING_WEB", async (message)=>{
             await User.updateOne({
                 _id: userId

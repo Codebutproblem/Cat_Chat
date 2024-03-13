@@ -5,6 +5,7 @@ const Stranger = require("../../models/stranger.model");
 const Format = require("../../helpers/format");
 const chatSocket = require("../../socket/client/chat.socket");
 const Pair = require("../../helpers/pair");
+const pairSocket = require("../../socket/client/pair.socket");
 module.exports.index = async (req, res) => {
     const room_id = req.params.room_id;
     const idA = res.locals.user.id;
@@ -52,6 +53,7 @@ module.exports.inQueue = async (req, res) => {
         const stranger = new Stranger({ user_id: idA });
         await stranger.save();
         const idB = await Pair(idA);
+        let room_id = "";
         if(idB){
             const roomchat = new Roomchat({
                 typeRoom: "temporary",
@@ -67,30 +69,9 @@ module.exports.inQueue = async (req, res) => {
                 ]
             });
             await roomchat.save();
-            _io.once("connection", (socket)=>{
-                _io.emit("FOUND_STRANGER", roomchat.id);
-            });
+            room_id = roomchat.id;
         }
-        _io.once("connection", (socket)=>{
-            socket.on("JOIN_ROOM", async (room_id)=>{
-                const roomchat = await Roomchat.findOne({_id: room_id});
-                for(const user of roomchat.users){
-                    await Stranger.deleteOne({user_id: user.user_id});
-                }
-                const user_1 = await User.findOne({_id: roomchat.users[0].user_id}).select("-password -tokenUser");
-                const user_2 = await User.findOne({_id: roomchat.users[1].user_id}).select("-password -tokenUser");
-                socket.emit("JOIN_NOW", {
-                    room_id: room_id,
-                    user_1: user_1,
-                    user_2: user_2
-                });
-            });
-            socket.on("LEAVE_QUEUE", async (userId)=>{
-                await Roomchat.deleteOne({
-                    "users.user_id": userId
-                });
-            });
-        })
+        pairSocket(idA, room_id);
         res.render("client/pages/chat/in-queue",{
             pageTitle: "Loading..."
         });

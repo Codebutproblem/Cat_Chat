@@ -8,7 +8,7 @@ module.exports.getUser = async (req, res, next) => {
             status: "active"
         }).select("-password");
         if(user){
-            onlineSocket.online(user.id, "online");
+            await onlineSocket.online(user.id, "online");
             onlineSocket.close(user.id);
             res.locals.user = user;
         }
