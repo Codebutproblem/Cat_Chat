@@ -1,8 +1,4 @@
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js';
-const upload = new FileUploadWithPreview.FileUploadWithPreview("upload-images", {
-    multiple: true,
-    maxFileCount: 6
-});
 
 function getCurrentTime() {
     var currentTime = new Date();
@@ -22,10 +18,10 @@ function scrollToBottom() {
     if (bodyChat) {
         bodyChat.scrollTop = bodyChat.scrollHeight;
     }
-    window.scrollTop = window.scrollHeight;
+    window.scrollTo(0, document.body.scrollHeight);
 }
 scrollToBottom();
-
+let objectFile = {};
 
 // SEND MESSAGE TO SERVER
 const formSendData = document.querySelector(".main .chat .inner-form");
@@ -33,14 +29,15 @@ if (formSendData) {
     formSendData.addEventListener("submit", (event) => {
         event.preventDefault();
         const content = event.target.elements.content.value;
-        const images = upload.cachedFileArray;
+        const uploadInput = document.querySelector("#file-upload-image");
+        const images = uploadInput.files;
         if (content || images.length > 0) {
             socket.emit("CLIENT_SEND_MESSAGE", {
                 content: content,
                 images: images
             });
             event.target.elements.content.value = "";
-            upload.resetPreviewPanel(); //Clear images panel
+            objectFile = {};
             socket.emit("CLIENT_SEND_TYPING", "hidden");
         }
     });
@@ -162,7 +159,6 @@ socket.on("SERVER_RETURN_TYPING", (data) => {
     }
 });
 
-
 // Review Full Images
 const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
 if (bodyChatPreviewImage) {
@@ -194,5 +190,28 @@ if(temporaryRoom){
         if(!left_room){
             socket.emit("CLIENT_LEAVE_ROOM", temporaryRoom.getAttribute("room-id"));
         }
+    });
+}
+
+const uploadInput = document.querySelector("#file-upload-image");
+if(uploadInput){
+    uploadInput.addEventListener("change", (event)=>{
+        const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
+        for(let i = 0; i < Math.min(6,event.target.files.length); i++){
+            const file = event.target.files[i];
+            if(file){
+                const url = URL.createObjectURL(file);
+                const div = document.createElement("div");
+                div.classList.add("box-preview");
+                div.innerHTML = `
+                    <img src=${url} />
+                `;
+                previewImage.appendChild(div);   
+            }
+        }
+        const innerPreviewImage = document.querySelector(".chat .inner-preview-images");
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        innerPreviewImage.style.bottom = `calc(100% + ${scrollBarWidth}px)`
+        window.scrollTo(0, document.body.scrollHeight);
     });
 }

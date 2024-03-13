@@ -1,8 +1,6 @@
 extends ../../layouts/default.pug
 
 block style 
-    //- Upload Images
-    link(rel="stylesheet", href="https://unpkg.com/file-upload-with-preview/dist/style.css")
     //- ViewerJs
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.css")
     link(rel="stylesheet", href="/client/css/main.css")
@@ -32,13 +30,14 @@ block main
                                         img(src=image)
             .inner-foot
                 .inner-preview-images 
-                    div(class="custom-file-container" data-upload-id="upload-images")
+                    input(type="file" multiple accept="image/*" id="file-upload-image" name="file-images" class="d-none")
+                    div(class="preview-images") 
                 form(action="", class="inner-form d-flex align-items-center ")
                     span(class="form-btn me-2")
                         <i class="fa-solid fa-file"></i>
                     label(
                             class="form-btn me-2"
-                            for="file-upload-with-preview-upload-images"
+                            for="file-upload-image"
                             )
                         <i class="fa-solid fa-image"></i>
                     input(
@@ -57,8 +56,6 @@ block main
 block script 
     //- Emoji Icon
     script(type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js")
-    //-Upload Images
-    script(src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js") 
     //- Viewer js
     script(src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.js") 
     script(type="module" src="/client/js/chat.js") 
