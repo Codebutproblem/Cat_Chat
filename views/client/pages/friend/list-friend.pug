@@ -3,6 +3,7 @@ block style
     link(rel="stylesheet", href="/client/css/friend.css")
 block main
     .main 
+        div(user-id=user.id)
         h1 Danh sách Bạn bè
         .friend 
             .inner-search
@@ -12,7 +13,7 @@ block main
                         i(class="fa-solid fa-magnifying-glass") 
 
             .inner-users
-                .row.align-items-stretch
+                .list-friend-box.row.align-items-stretch
                     each user in users 
                         .col-md-4
                             .box-user

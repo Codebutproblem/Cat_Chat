@@ -3,6 +3,7 @@ block style
     link(rel="stylesheet", href="/client/css/friend.css")
 block main
     .main 
+        div(user-id=user.id)
         h1 Lời mời kết bạn
         .friend 
             .inner-search
@@ -12,7 +13,7 @@ block main
                         i(class="fa-solid fa-magnifying-glass") 
 
             .inner-users
-                .row.align-items-stretch
+                .accept-friend-box.row.align-items-stretch
                     each user in users 
                         .col-md-4
                             .box-user 
@@ -24,7 +25,7 @@ block main
                                         button(class="accept-btn btn btn-sm btn-success") Đồng ý
                                         button(class="refuse-btn btn btn-sm btn-danger ms-2") Từ chối
                                         button(class="refused-btn btn btn-sm btn-secondary" disabled) Đã từ chối
-                                        button(class="accepted-btn btn btn-sm btn-primary" disabled) Đã Đã chấp nhận
+                                        button(class="accepted-btn btn btn-sm btn-primary" disabled) Đã chấp nhận
                                     
 block script     
     script(src="/client/js/friend.js") 

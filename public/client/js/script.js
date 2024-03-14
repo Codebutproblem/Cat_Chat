@@ -29,3 +29,22 @@ window.addEventListener('beforeunload', function (event) {
     socket.emit("CLOSING_WEB", "close-web");
 });
 
+const friendAction = document.querySelector(".friend-action");
+if(friendAction){
+    const myId = document.querySelector("[user-id]").getAttribute("user-id");
+    socket.on("RECIEVE_REQUEST_FRIEND",(data)=>{
+        if(myId == data.userB._id){
+            const friendRequest = friendAction.querySelector("a:nth-child(3) span");
+            if(friendRequest){
+                friendRequest.innerHTML = data.countRequestFriend;
+            }
+            else{
+                const friendRequestBtn = friendAction.querySelector("a:nth-child(3)");
+                const span = document.createElement("span");
+                span.innerHTML = `${data.countRequestFriend}`;
+                friendRequestBtn.appendChild(span);
+            }
+        }
+    });
+    
+}

@@ -11,7 +11,7 @@ block main
                 if(friend)
                     .inner-avatar 
                         .border-image 
-                            img(src= user.avatar)
+                            img(src= friend.avatar)
                         span(class=(friend.statusOnline == "online" ? "online" : ""))
                     .inner-name #{friend.fullName}
             .inner-body

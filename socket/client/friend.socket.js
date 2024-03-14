@@ -28,6 +28,21 @@ module.exports = (res) => {
                 });
             }
 
+            if(!existAinB && !existAinB){
+                const userA = await User.findOne({
+                    _id: idA,
+                    deleted: false
+                });
+                const userB = await User.findOne({
+                    _id: idB,
+                    deleted: false
+                });
+                socket.broadcast.emit("RECIEVE_REQUEST_FRIEND",{
+                    userA: userA,
+                    userB: userB,
+                    countRequestFriend: userB.acceptFriendsList.length
+                });
+            }
         });
 
         socket.on("CLIENT_CANCEL_ADD_FRIEND", async (idB) => {
@@ -82,6 +97,21 @@ module.exports = (res) => {
                     _id: idA
                 }, {
                     $pull: { acceptFriendsList: idB }
+                });
+            }
+
+            if(existAinB && existBinA){
+                const userA = await User.findOne({
+                    _id: idA,
+                    deleted: false
+                });
+                const userB = await User.findOne({
+                    _id: idB,
+                    deleted: false
+                });
+                socket.broadcast.emit("REFUSE_ADD_FRIEND",{
+                    userA: userA,
+                    userB: userB,
                 });
             }
         });
@@ -145,6 +175,20 @@ module.exports = (res) => {
                     }
                 });
             }
+            if(!existAinB && !existBinA){
+                const userA = await User.findOne({
+                    _id: idA,
+                    deleted: false
+                });
+                const userB = await User.findOne({
+                    _id: idB,
+                    deleted: false
+                });
+                socket.broadcast.emit("ACCEPT_ADD_FRIEND",{
+                    userA: userA,
+                    userB: userB,
+                });
+            }
         });
 
         socket.on("CLIENT_UNFRIEND", async (idB) => {
@@ -153,7 +197,12 @@ module.exports = (res) => {
             const userA = await User.findOne({
                 _id: idA
             });
-            const room_id = userA.friendList.find(friend => friend.user_id == idB).room_chat_id;
+            const friend= userA.friendList.find(friend => friend.user_id == idB);
+            if(!friend){
+                return;
+            }
+            
+            const room_id = friend.room_chat_id;
 
             await Roomchat.deleteOne({
                 _id: room_id

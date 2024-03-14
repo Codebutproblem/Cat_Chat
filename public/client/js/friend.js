@@ -1,6 +1,5 @@
 function updateRequestedNotification(){
     const requestedNotification = document.querySelector(".header .friend-action a span");
-    console.log(requestedNotification);
     const requestedCount = parseInt(requestedNotification.innerHTML);
     if(requestedCount > 1){
         requestedNotification.innerHTML = requestedCount - 1;
@@ -10,6 +9,57 @@ function updateRequestedNotification(){
     }
 }
 
+// Hàm từ chối kết bạn
+function refuseListen(button){
+    button.addEventListener("click",()=>{
+        const refusedButton = document.querySelector(".inner-users .refused-btn");
+        if(refusedButton){
+            button.parentNode.classList.add("refused");
+        }
+        else{
+            button.parentNode.classList.add("add");
+        }
+        button.parentNode.classList.remove("accept");
+        updateRequestedNotification()
+        const userId = button.parentNode.getAttribute("data-user-id");
+        socket.emit("CLIENT_REFUSE_ADD_FRIEND", userId);
+    });
+}
+
+// Hàm đồng ý kết bạn
+function acceptListen(button){
+    button.addEventListener("click", (event)=>{
+        const acceptedButton = document.querySelector(".inner-users .accepted-btn");
+        if(acceptedButton){
+            button.parentNode.classList.add("accepted");
+        }
+        else{
+            button.parentNode.classList.add("unfriend");
+        }
+        button.parentNode.classList.remove("accept");
+        updateRequestedNotification()
+        const userId = button.parentNode.getAttribute("data-user-id");
+        socket.emit("CLIENT_ACCEPT_ADD_FRIEND", userId);
+    });
+}
+
+// Hàm hủy kết bạn
+function unfriendListen(button){
+    button.addEventListener("click", (event)=>{
+        const userId = button.parentNode.getAttribute("data-user-id");
+        socket.emit("CLIENT_UNFRIEND", userId);
+        const unfriendedButton = document.querySelector(".inner-users .unfriended-btn");
+        if(unfriendedButton){
+            button.parentNode.classList.add("unfriended");
+        }
+        else{
+            button.parentNode.classList.add("add");
+        }
+        button.parentNode.classList.remove("unfriend");
+    });
+}
+
+// Hàm cập nhật trạng thái
 
 // Gửi yêu cầu kết bạn
 const listBtnAdd = document.querySelectorAll(".inner-users .add-btn");
@@ -23,6 +73,79 @@ if(listBtnAdd.length > 0){
         });
     });
 }
+
+// Nhận yêu cầu kết bạn
+const myId = document.querySelector("[user-id]").getAttribute("user-id");
+socket.on("RECIEVE_REQUEST_FRIEND",(data)=>{
+    const acceptFriendBox = document.querySelector(".inner-users .accept-friend-box");
+    if(acceptFriendBox && myId == data.userB._id){
+        const div = document.createElement("div");
+        div.classList.add("col-md-4");
+        div.innerHTML= `
+            <div class="box-user">
+                <div class="inner-avatar">
+                    <img src=${data.userA.avatar} />
+                </div>
+                <div class="inner-info">
+                    <div class="inner-name">${data.userA.fullName}</div>
+                    <div class="inner-button accept" data-user-id=${data.userA._id}>
+                        <button class="accept-btn btn btn-sm btn-success">Đồng ý</button>
+                        <button class="refuse-btn btn btn-sm btn-danger ms-2">Từ chối</button>
+                        <button class="refused-btn btn btn-sm btn-secondary" disable>Đã từ chối</button>
+                        <button class="accepted-btn btn btn-sm btn-primary" disable>Đã chấp nhận</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        acceptFriendBox.appendChild(div);
+        const refuseBtn = div.querySelector(".box-user .inner-button .refuse-btn");
+        refuseListen(refuseBtn);
+        const acceptBtn = div.querySelector(".box-user .inner-button .accept-btn");
+        acceptListen(acceptBtn);
+    }
+});
+
+// Bị từ chối kết bạn
+socket.on("REFUSE_ADD_FRIEND", (data)=>{
+    const addFriendBox = document.querySelector(".inner-users .add-friend-box");
+    if(addFriendBox && myId == data.userB._id){
+        const boxUserA = addFriendBox.querySelector(`.box-user [data-user-id="${data.userA._id}"]`);
+        boxUserA.classList.add("add");
+        boxUserA.classList.remove("cancel");
+    }
+});
+// Được đồng ý kết bạn
+socket.on("ACCEPT_ADD_FRIEND", (data)=>{
+    const addFriendBox = document.querySelector(".inner-users .add-friend-box");
+    if(addFriendBox && myId == data.userB._id){
+        const boxUserA = addFriendBox.querySelector(`.box-user [data-user-id="${data.userA._id}"]`);
+        boxUserA.classList.add("unfriend");
+        boxUserA.classList.remove("cancel");
+    }
+    const listFriendBox = document.querySelector(".inner-users .list-friend-box");
+    if(listFriendBox && myId == data.userB._id){
+        const div = document.createElement("div");
+        div.classList.add("col-md-4");
+        div.innerHTML= `
+            <div class="box-user">
+                <div class="inner-avatar">
+                    <img src=${data.userA.avatar} />
+                </div>
+                <div class="inner-info">
+                    <div class="inner-name">${data.userA.fullName}</div>
+                    <div class="inner-button unfriend" data-user-id=${data.userA._id}>
+                        <button class="unfriend-btn btn btn-sm btn-danger">Hủy kết bạn</button>
+                        <button class="unfriended-btn btn btn-sm btn-secondary" disable>Đã hủy kết bạn</button>
+                    </div>
+                </div>
+                <span class=${data.userA.statusOnline == "online" ? "online" : ""} user-id="${data.userA._id}"></span>
+            </div>
+        `;
+        listFriendBox.appendChild(div);
+        const unfriendBtn = div.querySelector(".inner-button .unfriend-btn");
+        unfriendListen(unfriendBtn);
+    }
+});
 
 // Hủy gửi yêu cầu kết bạn
 const listBtnCancel = document.querySelectorAll(".inner-users .cancel-btn");
@@ -41,19 +164,7 @@ if(listBtnCancel.length > 0){
 const listBtnRefuse = document.querySelectorAll(".inner-users .refuse-btn");
 if(listBtnRefuse.length > 0){
     listBtnRefuse.forEach(button => {
-        button.addEventListener("click", (event)=>{
-            const refusedButton = document.querySelector(".inner-users .refused-btn");
-            if(refusedButton){
-                button.parentNode.classList.add("refused");
-            }
-            else{
-                button.parentNode.classList.add("add");
-            }
-            button.parentNode.classList.remove("accept");
-            updateRequestedNotification()
-            const userId = button.parentNode.getAttribute("data-user-id");
-            socket.emit("CLIENT_REFUSE_ADD_FRIEND", userId);
-        });
+        refuseListen(button);
     });
 }
 
@@ -61,44 +172,23 @@ if(listBtnRefuse.length > 0){
 const listBtnAccept = document.querySelectorAll(".inner-users .accept-btn");
 if(listBtnAccept.length > 0){
     listBtnAccept.forEach(button => {
-        button.addEventListener("click", (event)=>{
-            const acceptedButton = document.querySelector(".inner-users .accepted-btn");
-            if(acceptedButton){
-                button.parentNode.classList.add("accepted");
-            }
-            else{
-                button.parentNode.classList.add("unfriend");
-            }
-            button.parentNode.classList.remove("accept");
-            updateRequestedNotification()
-            const userId = button.parentNode.getAttribute("data-user-id");
-            socket.emit("CLIENT_ACCEPT_ADD_FRIEND", userId);
-        });
+        acceptListen(button);
     });
 }
 // Hủy kết bạn
 const listBtnUnfriend = document.querySelectorAll(".inner-users .unfriend-btn");
 if(listBtnUnfriend.length > 0){
     listBtnUnfriend.forEach(button => {
-        button.addEventListener("click", (event)=>{
-            const userId = button.parentNode.getAttribute("data-user-id");
-            socket.emit("CLIENT_UNFRIEND", userId);
-            const unfriendedButton = document.querySelector(".inner-users .unfriended-btn");
-            if(unfriendedButton){
-                button.parentNode.classList.add("unfriended");
-            }
-            else{
-                button.parentNode.classList.add("add");
-            }
-            button.parentNode.classList.remove("unfriend");
-        });
+        unfriendListen(button);
     });
 }
 
+// Hiển thị trạng thái online của người dùng
 socket.on("SERVER_RETURN_STATUS" , (data) => {
     const onlineSymbols = document.querySelectorAll(`.box-user > span`);
     for(const symbol of onlineSymbols){
         const userId = symbol.getAttribute("user-id");
+        console.log(userId);
         if(userId == data.userId){
             if (data.status == "online"){
                 if(!symbol.classList.contains("online")){

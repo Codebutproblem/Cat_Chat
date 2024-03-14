@@ -18,6 +18,7 @@
                         a(href="/chat/stranger" class="stranger-chat btn btn-light") Stranger Chat 
             .col-4
                 if (user)
+                    div(user-id=user.id)
                     .inner-user
                         div(class="d-flex align-items-center justify-content-end")                                   
                             span(class="me-3") #{user.fullName}
