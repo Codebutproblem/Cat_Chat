@@ -189,8 +189,22 @@
     border-radius: 5px;
     padding: 10px;
     background: #efefef;
-    overflow: hidden;
     margin: 5px;
+    position: relative;
+}
+.main .preview-images .box-preview .delete-show-image{
+    display: block;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--color-blue);
+    position: absolute;
+    top:-8px;
+    right: -8px;
+    cursor: pointer;
 }
 .main .preview-images img{
     width: 100%;

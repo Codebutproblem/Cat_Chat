@@ -12,6 +12,13 @@ function getCurrentTime() {
 function padZero(num) {
     return (num < 10 ? '0' : '') + num;
 }
+function reviewFullImage(){
+    // Review Full Images
+    const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
+    if (bodyChatPreviewImage) {
+        const gallery = new Viewer(bodyChatPreviewImage);
+    }
+}
 // Scroll chat to bottom
 function scrollToBottom() {
     const bodyChat = document.querySelector(".main .chat .inner-body");
@@ -21,7 +28,7 @@ function scrollToBottom() {
     window.scrollTo(0, document.body.scrollHeight);
 }
 scrollToBottom();
-let objectFile = {};
+reviewFullImage();
 
 // SEND MESSAGE TO SERVER
 const formSendData = document.querySelector(".main .chat .inner-form");
@@ -30,14 +37,22 @@ if (formSendData) {
         event.preventDefault();
         const content = event.target.elements.content.value;
         const uploadInput = document.querySelector("#file-upload-image");
-        const images = uploadInput.files;
+        const images = [];
+        for(let i = 0; i< uploadInput.files.length; i++){
+            if(!uploadInput.files[i].notSelected){
+                images.push(uploadInput.files[i])
+            }
+        }
         if (content || images.length > 0) {
+            console.log(images);
             socket.emit("CLIENT_SEND_MESSAGE", {
                 content: content,
                 images: images
             });
             event.target.elements.content.value = "";
-            objectFile = {};
+            uploadInput.value = "";
+            const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
+            previewImage.innerHTML = "";
             socket.emit("CLIENT_SEND_TYPING", "hidden");
         }
     });
@@ -159,12 +174,6 @@ socket.on("SERVER_RETURN_TYPING", (data) => {
     }
 });
 
-// Review Full Images
-const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
-if (bodyChatPreviewImage) {
-    const gallery = new Viewer(bodyChatPreviewImage);
-}
-
 
 socket.on("SERVER_RETURN_STATUS" , (data) => {
     const onlineSymbol = document.querySelector(`.inner-avatar span`);
@@ -195,9 +204,9 @@ if(temporaryRoom){
 
 const uploadInput = document.querySelector("#file-upload-image");
 if(uploadInput){
+    const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
     uploadInput.addEventListener("change", (event)=>{
-        const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
-        for(let i = 0; i < Math.min(6,event.target.files.length); i++){
+        for(let i = 0; i < event.target.files.length; i++){
             const file = event.target.files[i];
             if(file){
                 const url = URL.createObjectURL(file);
@@ -205,8 +214,14 @@ if(uploadInput){
                 div.classList.add("box-preview");
                 div.innerHTML = `
                     <img src=${url} />
+                    <span class="delete-show-image">X</span>
                 `;
-                previewImage.appendChild(div);   
+                previewImage.appendChild(div);
+                const span = div.querySelector("span");
+                span.addEventListener("click", ()=>{
+                    previewImage.removeChild(div);
+                    event.target.files[i].notSelected = true;
+                }); 
             }
         }
         const innerPreviewImage = document.querySelector(".chat .inner-preview-images");
@@ -214,4 +229,5 @@ if(uploadInput){
         innerPreviewImage.style.bottom = `calc(100% + ${scrollBarWidth}px)`
         window.scrollTo(0, document.body.scrollHeight);
     });
+
 }

@@ -7,6 +7,7 @@ const chatSocket = require("../../socket/client/chat.socket");
 const Pair = require("../../helpers/pair");
 const pairSocket = require("../../socket/client/pair.socket");
 module.exports.index = async (req, res) => {
+    // await Chat.deleteMany({});
     const room_id = req.params.room_id;
     const idA = res.locals.user.id;
     chatSocket(res, room_id, "friend");
