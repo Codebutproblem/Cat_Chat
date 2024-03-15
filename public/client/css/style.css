@@ -249,7 +249,8 @@ body{
 .box-user-setting .box-body{
     padding: 10px;
 }
-.box-user-setting .box-body input[type="text"]{
+.box-user-setting .box-body input[type="text"],
+.box-user-setting .box-body textarea{
     color: #fff;
     background: transparent;
 }

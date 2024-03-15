@@ -188,7 +188,6 @@ socket.on("SERVER_RETURN_STATUS" , (data) => {
     const onlineSymbols = document.querySelectorAll(`.box-user > span`);
     for(const symbol of onlineSymbols){
         const userId = symbol.getAttribute("user-id");
-        console.log(userId);
         if(userId == data.userId){
             if (data.status == "online"){
                 if(!symbol.classList.contains("online")){

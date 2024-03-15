@@ -256,19 +256,25 @@ module.exports.updateInfo = async (req, res)=>{
     try {
         const fullName = req.body.fullName;
         const phone = req.body.phone;
+        const gender = req.body.gender;
+        const description = req.body.description;
         const tokenUser = req.cookies.tokenUser;
         if(req.file){
             const url = await uploadCloud(req.file.buffer);
             await User.updateOne({tokenUser: tokenUser},{
                 fullName: fullName,
                 phone: phone,
+                gender: gender,
+                description: description,
                 avatar: url
             });
         }
         else{
             await User.updateOne({tokenUser: tokenUser},{
                 fullName: fullName,
-                phone: phone
+                gender: gender,
+                phone: phone,
+                description: description
             });
         }
         req.flash("success","Cập nhật thành công");

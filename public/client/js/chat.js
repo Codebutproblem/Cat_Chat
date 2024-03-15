@@ -30,6 +30,21 @@ const soundMessage = document.getElementById("audio-message");
 scrollToBottom();
 reviewFullImage();
 
+let activeSound = false;
+// Kiểm tra nếu trình duyệt hỗ trợ API Visibility
+if (typeof document.hidden !== "undefined") {
+    // Lắng nghe sự kiện visibilitychange
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden) {
+            // Trang web đang ẩn, người dùng có thể không xem
+            activeSound = true;
+        } else {
+            // Trang web đang hiển thị lại
+            activeSound = false;
+        }
+    });
+}
+
 // SEND MESSAGE TO SERVER
 const formSendData = document.querySelector(".main .chat .inner-form");
 if (formSendData) {
@@ -91,7 +106,9 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}`;
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
-    if(myId != data.userId){
+
+    // Thông báo tin nhắn nếu người dùng không ở trang
+    if(myId != data.userId && activeSound){
         soundMessage.addEventListener("click", function() {
             soundMessage.play();
         });

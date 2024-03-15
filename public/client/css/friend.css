@@ -54,7 +54,7 @@
     align-items: center;
     margin-bottom: 15px;
     border: 1px solid #ddd;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 10px;
     position: relative;
 }
@@ -72,11 +72,12 @@
     display: block;
 }
 .main .inner-users .inner-avatar{
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 10px;
+    border: 2px solid #fff;
 }
 .main .inner-users .inner-avatar img{
     width: 100%;
