@@ -45,6 +45,30 @@ if(friendAction){
                 friendRequestBtn.appendChild(span);
             }
         }
+    });   
+}
+
+
+const innerUser = document.querySelector(".inner-user");
+if(innerUser){
+    const boxUserSetting = document.querySelector(".box-user-setting ");
+    const closeButton = boxUserSetting.querySelector("[close-button]");
+    closeButton.addEventListener("click",()=>{
+        boxUserSetting.classList.add("hidden");
     });
-    
+
+    const openUserBox = innerUser.querySelector("[open-user-box]");
+    openUserBox.addEventListener("click",()=>{
+        boxUserSetting.classList.remove("hidden");       
+    });
+}
+
+const userSettingBox = document.querySelector(".box-user-setting");
+if(userSettingBox){
+    const inputImage = userSettingBox.querySelector(".box-head input[name='avatar']");
+    const userImg = userSettingBox.querySelector(".box-head img");
+    inputImage.addEventListener("change",()=>{
+        const file = inputImage.files[0];
+        userImg.src = URL.createObjectURL(file);
+    });
 }

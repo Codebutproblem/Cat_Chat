@@ -1,3 +1,5 @@
+const User = require("../../models/user.model");
+const md5 = require("md5");
 module.exports.registerCheckForm = (req, res, next) => {
     if(!req.body.fullName){
         req.flash("error", "Bạn chưa nhập họ tên");
@@ -75,4 +77,40 @@ module.exports.resetPasswordCheck = (req, res, next) =>{
     }
     next();
 }
+
+module.exports.changePasswordCheck = async (req, res, next) =>{
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const newPasswordConfirm = req.body.newPassword_confirm;
+    if(!oldPassword){
+        req.flash("error","Vui lòng nhập mật khẩu");
+        res.redirect("back");
+        return;
+    }
+    if(!newPassword){
+        req.flash("error","Vui lòng nhập mật khẩu mới");
+        res.redirect("back");
+        return;
+    }
+    if(!newPasswordConfirm){
+        req.flash("error","Vui lòng xác minh mật khẩu mới");
+        res.redirect("back");
+        return;
+    }
+    const tokenUser = req.cookies.tokenUser;
+    const user = await User.findOne({tokenUser: tokenUser});
+    if(md5(oldPassword) != user.password){
+        req.flash("error","Mật khẩu cũ không đúng");
+        res.redirect("back");
+        return;
+    }
+    if(newPassword != newPasswordConfirm){
+        req.flash("error","Xác nhận mật khẩu không đúng");
+        res.redirect("back");
+        return;
+    }
+    next();
+}
+
+
 

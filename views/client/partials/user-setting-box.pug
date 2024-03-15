@@ -1,0 +1,23 @@
+.box-user-setting.hidden
+    .main-box(class="text-white") 
+        form(action="/user/update-info?_method=PATCH" method="POST" enctype="multipart/form-data") 
+            .box-head
+                label(class="inner-img")
+                    .box-select <i class="fa-regular fa-image"></i>
+                    img(src=user.avatar)
+                    input(type="file" accept="image/*" name="avatar" class="form-control d-none")
+                input(
+                    type="text"
+                    class="inner-name"
+                    value= user.fullName
+                    name="fullName"
+                )
+                span(close-button) <i class="fa-regular fa-circle-xmark"></i>
+            .box-body 
+                div(class="mb-3")
+                    label(for="phone" class="form-label") Số điện thoại:
+                    input(type="text" class="form-control" id="phone" name="phone" placeholder="09xxxxxx..." value=(user.phone ? user.phone: ""))
+                div(class="mb3")
+                div(class="mb-3")
+                    button(type="submit" class="btn btn-primary") Cập nhật
+                    a(href="/user/password/change" class="change-password btn btn-warning ms-2") Đổi mật khẩu

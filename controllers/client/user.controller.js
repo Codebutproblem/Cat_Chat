@@ -4,6 +4,7 @@ const generate = require("../../helpers/generate");
 const mail = require("../../helpers/mail");
 const md5 = require("md5");
 const onlineSocket = require("../../socket/client/online.socket");
+const uploadCloud = require("../../helpers/uploadCloud");
 module.exports.login = (req, res) => {
 
     res.render("client/pages/user/login", {
@@ -202,10 +203,8 @@ module.exports.reset = (req, res) => {
 module.exports.resetPatch = async (req, res) => {
     const tokenUser = req.cookies.tokenUser;
     const password = req.body.password;
-    console.log(password);
     try {
         const user = await User.findOne({ tokenUser: tokenUser });
-        console.log(user);
         await User.updateOne({ tokenUser: tokenUser }, {
             password: md5(password)
         });
@@ -233,4 +232,50 @@ module.exports.sendOtpAgain = async (req, res) => {
     const html = `Mã xác minh của bạn là: <b>${verification.otp}</b>`
     mail.send(email, subject, html);
     res.redirect("back");
+}
+module.exports.changePassword = async (req, res) =>{
+    res.render("client/pages/user/change-password",{
+        pageTitle: "Thay đổi mật khẩu"
+    });
+}
+module.exports.changePasswordPatch = async (req, res) =>{
+    try{
+        const newPassword = req.body.newPassword;
+        const tokenUser = req.cookies.tokenUser;
+        await User.updateOne({
+            tokenUser: tokenUser
+        },{password: md5(newPassword)});
+        req.flash("success","Thay đổi mật khẩu thành công");
+        res.redirect("/");
+    }catch(error){
+        req.flash("error","Thay đổi mật khẩu thất bại");
+        res.redirect("back");
+    }
+}
+module.exports.updateInfo = async (req, res)=>{
+    try {
+        const fullName = req.body.fullName;
+        const phone = req.body.phone;
+        const tokenUser = req.cookies.tokenUser;
+        if(req.file){
+            const url = await uploadCloud(req.file.buffer);
+            await User.updateOne({tokenUser: tokenUser},{
+                fullName: fullName,
+                phone: phone,
+                avatar: url
+            });
+        }
+        else{
+            await User.updateOne({tokenUser: tokenUser},{
+                fullName: fullName,
+                phone: phone
+            });
+        }
+        req.flash("success","Cập nhật thành công");
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        req.flash("error", "Cập nhật không thành công");
+        res.redirect("back");
+    }
 }

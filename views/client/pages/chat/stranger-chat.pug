@@ -41,7 +41,8 @@ block main
                         <i class="fa-solid fa-paper-plane"></i>
     div(class="tooltip" role="tooltip")
         emoji-picker
-
+    audio(controls id="audio-message" class="d-none")
+        source(src="/client/mp3/line-messenger.mp3" type="audio/mpeg")
 block script 
     //- Emoji Icon
     script(type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js")

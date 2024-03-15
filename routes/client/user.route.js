@@ -1,9 +1,11 @@
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
 const controller = require("../../controllers/client/user.controller");
 const validate = require("../../validates/client/user.validate");
 const userMiddleware = require("../../middlewares/client/user.middleware");
 const authMiddleware = require("../../middlewares/client/auth.middleware");
+const upload = multer();
 router.get("/login", userMiddleware.autoLogin, controller.login);
 router.post("/login", validate.loginCheckForm, controller.loginPost);
 router.get("/logout",authMiddleware.requireAuth , controller.logout);
@@ -19,4 +21,7 @@ router.get("/password/reset", authMiddleware.requireAuth ,controller.reset);
 router.patch("/password/reset", validate.resetPasswordCheck, controller.resetPatch);
 router.get("/verification/send-again/:email",userMiddleware.autoLogin ,controller.sendOtpAgain);
 router.get("/password/forgot-verify/send-again/:email",userMiddleware.autoLogin ,controller.sendOtpAgain);
+router.get("/password/change", authMiddleware.requireAuth, controller.changePassword);
+router.patch("/password/change",validate.changePasswordCheck, controller.changePasswordPatch);
+router.patch("/update-info",upload.single("avatar"),controller.updateInfo)
 module.exports = router;

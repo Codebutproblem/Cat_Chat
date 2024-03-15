@@ -13,6 +13,8 @@ html
         +alert-success(2000)
         +alert-error(2000)
         include ../partials/header.pug
+        if (user)
+            include ../partials/user-setting-box.pug
         block main
 
         script(src= "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js")

@@ -20,7 +20,7 @@ block main
                                 a(href=`/chat/room/${user.our_room_id}` class="inner-avatar d-block")  
                                     img(src=user.avatar)
                                 .inner-info 
-                                    div(class="inner-name") #{user.fullName}
+                                    a(href=`/chat/room/${user.our_room_id}` class="inner-name d-block") #{user.fullName}
                                     div(class="inner-button unfriend" data-user-id=user.id) 
                                         button(class="unfriend-btn btn btn-sm btn-danger") Hủy kết bạn
                                         button(class="unfriended-btn btn btn-sm btn-secondary") Đã hủy kết bạn

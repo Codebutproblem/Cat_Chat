@@ -1,5 +1,4 @@
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js';
-
 function getCurrentTime() {
     var currentTime = new Date();
     var hours = currentTime.getHours();
@@ -27,6 +26,7 @@ function scrollToBottom() {
     }
     window.scrollTo(0, document.body.scrollHeight);
 }
+const soundMessage = document.getElementById("audio-message");
 scrollToBottom();
 reviewFullImage();
 
@@ -91,6 +91,12 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}`;
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
+    if(myId != data.userId){
+        soundMessage.addEventListener("click", function() {
+            soundMessage.play();
+        });
+        soundMessage.click();
+    }
 });
 
 

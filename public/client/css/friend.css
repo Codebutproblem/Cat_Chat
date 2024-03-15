@@ -88,6 +88,7 @@
     font-size: 18px;
     margin-bottom: 5px;
     width: 95px;
+    text-decoration: none;
 }
 .main .inner-button{
     display: flex;
