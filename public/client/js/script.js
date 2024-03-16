@@ -61,6 +61,12 @@ if(innerUser){
     openUserBox.addEventListener("click",()=>{
         boxUserSetting.classList.remove("hidden");       
     });
+    const mainBox = boxUserSetting.querySelector(".main-box");
+    document.addEventListener('click', function(event) {
+        if (!mainBox.contains(event.target) && !closeButton.contains(event.target) && boxUserSetting.contains(event.target)) {
+            boxUserSetting.classList.add("hidden");
+        }
+    });
 }
 
 const userSettingBox = document.querySelector(".box-user-setting");

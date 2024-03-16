@@ -213,6 +213,7 @@ if(boxUsers && boxUsers.length > 0){
         const boxInfoUser = document.querySelector(`.box-info-user[user-id="${userId}"]`);
         if(boxInfoUser){
             const closeButton = boxInfoUser.querySelector("[close-button]");
+            const mainBox = boxInfoUser.querySelector(".main-box");
             closeButton.addEventListener("click", ()=>{
                 boxInfoUser.classList.toggle("hidden");
             });
@@ -221,6 +222,11 @@ if(boxUsers && boxUsers.length > 0){
             });
             innerName.addEventListener("click",()=>{
                 boxInfoUser.classList.toggle("hidden");
+            });
+            document.addEventListener('click', function(event) {
+                if (!mainBox.contains(event.target) && !closeButton.contains(event.target) && boxInfoUser.contains(event.target)) {
+                    boxInfoUser.classList.add("hidden");
+                }
             });
         }
     });

@@ -165,6 +165,16 @@
     color: #fff;
     font-size: 20px;
 }
+.box-info-user .box-head .inner-name .male-icon{
+    font-size: 24px;
+    margin-left: 6px;
+    color: #0581d3;
+}
+.box-info-user .box-head .inner-name .female-icon{
+    font-size: 24px;
+    margin-left: 6px;
+    color: #f007dd;
+}
 .box-info-user .box-body{
     padding: 10px;
 }
