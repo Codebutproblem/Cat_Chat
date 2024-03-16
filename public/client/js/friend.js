@@ -5,7 +5,7 @@ function updateRequestedNotification(){
         requestedNotification.innerHTML = requestedCount - 1;
     }
     else{
-        document.querySelector(".header .friend-action a:nth-child(3)").removeChild(requestedNotification);
+        document.querySelector(".header .friend-action #accept-friend-nav").removeChild(requestedNotification);
     }
 }
 
@@ -77,6 +77,7 @@ if(listBtnAdd.length > 0){
 // Nhận yêu cầu kết bạn
 const myId = document.querySelector("[user-id]").getAttribute("user-id");
 socket.on("RECIEVE_REQUEST_FRIEND",(data)=>{
+    console.log(data);
     const acceptFriendBox = document.querySelector(".inner-users .accept-friend-box");
     if(acceptFriendBox && myId == data.userB._id){
         const div = document.createElement("div");
@@ -201,3 +202,26 @@ socket.on("SERVER_RETURN_STATUS" , (data) => {
         }
     }
 });
+
+
+const boxUsers = document.querySelectorAll(".main .friend .inner-users .box-user");
+if(boxUsers && boxUsers.length > 0){
+    boxUsers.forEach(boxUser => {
+        const innerAvatar = boxUser.querySelector(".inner-avatar");
+        const innerName = boxUser.querySelector(".inner-name");
+        const userId = boxUser.getAttribute("user-id");
+        const boxInfoUser = document.querySelector(`.box-info-user[user-id="${userId}"]`);
+        if(boxInfoUser){
+            const closeButton = boxInfoUser.querySelector("[close-button]");
+            closeButton.addEventListener("click", ()=>{
+                boxInfoUser.classList.toggle("hidden");
+            });
+            innerAvatar.addEventListener("click",()=>{
+                boxInfoUser.classList.toggle("hidden");
+            });
+            innerName.addEventListener("click",()=>{
+                boxInfoUser.classList.toggle("hidden");
+            });
+        }
+    });
+}

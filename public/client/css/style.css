@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coustard:wght@400;900&family=Madimi+One&display=swap');
 :root{
     --color-blue: #2f7af1;
     --color-aqua: #0ac5f4;
@@ -8,6 +7,7 @@
 }
 
 body{
+    font-family: "Madimi One", sans-serif;
     background: var(--color-body);
     /* overflow: hidden; */
 }
@@ -49,14 +49,11 @@ body{
     text-decoration: none;
 }
 .header .inner-logo a .img-logo{
-    border-radius: 30px;
-    width: 80px;
+    min-width: 80px;
     height: 80px;
-    border: 1px solid #ddd;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 25px;
+    border: 3px solid #aaa;
 }
 .header .inner-logo img{
     width: 100%;
@@ -69,7 +66,6 @@ body{
 }
 .header .inner-logo h1{
     font-weight: 400px;
-    font-family: "Oswald", sans-serif;
     font-size: 35px;
     color: var(--color-blue);
     transition: all 0.2s ease;
@@ -90,8 +86,32 @@ body{
     background: var(--color-blue);
     border-color: var(--color-blue);
 }
-.header .friend-action a{
+.header .friend-action .nav-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.header .friend-action .nav-menu li{
+    margin: 0 10px;
+}
+.header .friend-action .nav-menu li a{
+    display: inline-block;
+    text-decoration: none;
     position: relative;
+    font-size: 18px;
+    color: white;
+    transition: all 0.2s ease;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+.header .friend-action .nav-menu li a.menu-text-aqua{
+    color: var(--color-aqua);
+}
+.header .friend-action .nav-menu li a:hover{
+    color: var(--color-aqua);
 }
 .header .friend-action a span{
     position: absolute;
@@ -106,14 +126,20 @@ body{
 }
 
 
-
+.header .inner-user{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+    cursor: pointer;
+}
 .header .inner-user .avatar{
+    min-width: 60px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: 2px solid #fff;
     overflow: hidden;
-    cursor: pointer;
 }
 .header .inner-user .avatar img{
     width: 100%;
@@ -158,8 +184,53 @@ body{
     color: #fff;
     font-size: 20px;
     font-weight: 400;
-    font-family: "Oswald", sans-serif;
     letter-spacing: 1px;
+}
+@media (max-width:992px){
+    .header .friend-action .nav-menu{
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+    .header .inner-logo{
+        margin-bottom: 24px;
+        justify-content: center;
+    }
+    .header .inner-user{
+        justify-content: center;
+    }
+}
+@media (max-width:768px){
+    .header .inner-logo h1{
+        display: none;
+    }
+    .header .inner-logo a .img-logo{
+        min-width: 120px;
+        height: 120px;
+    }
+    .header .inner-user .avatar{
+        min-width: 80px;
+        height: 80px;
+    }
+    .header .inner-user .list-action{
+        top: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+@media (max-width:576px){
+    .header .friend-action .nav-menu{
+        flex-direction: column;
+        margin-bottom: 24px;
+    }
+    .header .friend-action .nav-menu li{
+        margin-bottom: 12px;
+    }
+    .header .friend-action .nav-menu li a{
+        font-size: 22px;
+    }
+    .header .inner-user span{
+        display: none;
+    }
 }
 
 .box-user-setting {
@@ -243,7 +314,6 @@ body{
     border: none;
     color: #fff;
     font-size: 20px;
-    font-family: "Oswald", sans-serif;
 }
 
 .box-user-setting .box-body{

@@ -43,7 +43,8 @@ module.exports.index = async (req, res) => {
 
 module.exports.stranger = async (req, res) => {
     res.render("client/pages/chat/stranger", {
-        pageTitle: "Cat Chat"
+        pageTitle: "Cat Chat",
+        page: "quick-chat"
     });
 }
 module.exports.inQueue = async (req, res) => {

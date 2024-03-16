@@ -1,0 +1,12 @@
+mixin box-info-user(user)
+    .box-info-user.hidden(user-id=user.id)
+        .main-box(class="text-white") 
+            form(action="/user/update-info?_method=PATCH" method="POST" enctype="multipart/form-data") 
+                .box-head
+                    label(class="inner-img")
+                        img(src=user.avatar)
+                    .inner-name #{user.fullName} (#{user.gender=="male"?"Nam":"Nữ"})
+                    span(close-button) <i class="fa-regular fa-circle-xmark"></i>
+                .box-body
+                    div(class="mb-3")
+                        div(class="description") !{user.description ? user.description : `Xin chào, tôi là ${user.fullName}`}

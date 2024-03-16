@@ -59,7 +59,6 @@ if (formSendData) {
             }
         }
         if (content || images.length > 0) {
-            console.log(images);
             socket.emit("CLIENT_SEND_MESSAGE", {
                 content: content,
                 images: images
@@ -169,7 +168,6 @@ if (emojiPicker) {
 
 // SERVER RETURN TYPING
 socket.on("SERVER_RETURN_TYPING", (data) => {
-    console.log(data.type);
     const body = document.querySelector(".main .chat .inner-body");
     const existTyping = document.querySelector(".chat .inner-body .box-typing");
     switch (data.type) {
@@ -200,7 +198,6 @@ socket.on("SERVER_RETURN_TYPING", (data) => {
 
 socket.on("SERVER_RETURN_STATUS" , (data) => {
     const onlineSymbol = document.querySelector(`.inner-avatar span`);
-    console.log(onlineSymbol);
     if (data.status == "online"){
         if(!onlineSymbol.classList.contains("online")){
             onlineSymbol.classList.add("online")

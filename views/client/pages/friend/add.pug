@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-info-user.pug
 block style 
     link(rel="stylesheet", href="/client/css/friend.css")
 block main
@@ -14,9 +15,9 @@ block main
 
             .inner-users
                 .add-friend-box.row.align-items-stretch
-                    each user in users 
-                        .col-md-4
-                            .box-user 
+                    each user in users
+                        .col-md-4.col-sm-6
+                            .box-user(user-id=user.id)
                                 .inner-avatar 
                                     img(src=user.avatar)
                                 .inner-info 
@@ -28,7 +29,8 @@ block main
                                         button(class="refuse-btn btn btn-sm btn-danger ms-2") Từ chối
                                         button(class="cancel-btn btn btn-sm btn-secondary") Hủy
                                         button(class="unfriend-btn btn btn-sm btn-danger") Hủy kết bạn
-                                    
+    each user in users
+        +box-info-user(user)                                  
 block script     
     script(src="/client/js/friend.js") 
             

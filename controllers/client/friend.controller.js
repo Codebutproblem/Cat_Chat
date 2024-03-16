@@ -31,7 +31,8 @@ module.exports.addFriend = async (req, res) => {
     }
     res.render("client/pages/friend/add",{
         pageTitle: "Kết bạn",
-        users: users
+        users: users,
+        page:"add"
     });
 }
 
@@ -53,7 +54,8 @@ module.exports.acceptFriend = async (req, res) => {
     const users = await User.find(find).select("-tokenUser -password");
     res.render("client/pages/friend/accept",{
         pageTitle: "Kết bạn",
-        users: users
+        users: users,
+        page: "accept"
     });
 }
 
@@ -78,6 +80,7 @@ module.exports.friend = async (req, res) => {
     }
     res.render("client/pages/friend/list-friend",{
         pageTitle: "Kết bạn",
-        users: users
+        users: users,
+        page:"friend-list"
     });
 }

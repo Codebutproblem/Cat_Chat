@@ -1,36 +1,42 @@
 .header 
     .container
         .row.align-items-center
-            .col-3
+            .col-md-3
                 .inner-logo.d-flex.align-items-center
                     a(href="/" class="d-flex align-items-center")
                         .img-logo
                             img(src="/client/images/cat-logo-3.jpg", alt="Cat Logo")
                         h1(class="mx-3") Cat Chat
-            .col-5
+            .col-md-6
                 if (user)
-                    .friend-action(class="text-end") 
-                        a(href="/friend/list" class="friend-list btn btn-warning me-3") Bạn bè
-                        a(href="/friend/add" class="send-add-friend btn btn-primary me-3") Kết bạn
-                        a(href="/friend/accept" class="friend-request btn btn-success me-3") Lời mời kết bạn
-                            if (user.acceptFriendsList.length > 0)
-                                span #{user.acceptFriendsList.length}
-                        a(href="/chat/stranger" class="stranger-chat btn btn-light") Nhắn tin nhanh
-            .col-4
+                    .friend-action
+                        ul(class="nav-menu")
+                            li
+                                a(href="/" class=(page && page=="home"? "menu-text-aqua": "") ) Trang chủ
+                            li
+                                a(href="/friend/list" class=(page && page=="friend-list"? "menu-text-aqua": "")) Bạn bè
+                            li
+                                a(href="/friend/add" class=(page && page=="add"? "menu-text-aqua": "")) Kết bạn
+                            li
+                                a(href="/friend/accept" class=(page && page=="accept"? "menu-text-aqua": "") id="accept-friend-nav") Lời mời kết bạn
+                                    if (user.acceptFriendsList.length > 0)
+                                        span #{user.acceptFriendsList.length}
+                            li
+                                a(href="/chat/stranger" class=(page && page=="quick-chat"? "menu-text-aqua": "")) Nhắn tin nhanh
+            .col-md-3
                 if (user)
                     div(user-id=user.id)
-                    .inner-user
-                        div(class="d-flex align-items-center justify-content-end")                                   
-                            span(class="me-3") #{user.fullName}
-                            div(class="avatar")
-                                img(src= user.avatar)
-                            ul(class="list-action")
-                                li 
-                                    a(href="javascript:;" open-user-box) <i class="fa-regular fa-user me-2"></i> Tài khoản 
-                                li 
-                                    a(href="/") <i class="fa-solid fa-gear me-2"></i> Cài đặt 
-                                li 
-                                    a(href="/user/logout") <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất 
+                    .inner-user                                   
+                        span(class="me-3") #{user.fullName}
+                        div(class="avatar")
+                            img(src= user.avatar)
+                        ul(class="list-action")
+                            li 
+                                a(href="javascript:;" open-user-box) <i class="fa-regular fa-user me-2"></i> Tài khoản 
+                            li 
+                                a(href="/") <i class="fa-solid fa-gear me-2"></i> Cài đặt 
+                            li 
+                                a(href="/user/logout") <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất 
                             
                 else 
                     .inner-login.text-end

@@ -15,7 +15,7 @@ block main
             .inner-users
                 .list-friend-box.row.align-items-stretch
                     each user in users 
-                        .col-md-4
+                        .col-md-4.col-sm-6
                             .box-user
                                 a(href=`/chat/room/${user.our_room_id}` class="inner-avatar d-block")  
                                     img(src=user.avatar)

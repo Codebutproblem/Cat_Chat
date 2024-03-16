@@ -6,7 +6,6 @@ module.exports = (res, room_id, typeRoom) => {
     _io.once("connection", (socket) => {
         socket.join(room_id);
         socket.on("CLIENT_SEND_MESSAGE", async (data) => {
-            console.log(data.images);
             let images = []; 
             for (const bufferImage of data.images) {
                 const link = await uploadCloud(bufferImage);

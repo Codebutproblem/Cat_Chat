@@ -34,12 +34,12 @@ if(friendAction){
     const myId = document.querySelector("[user-id]").getAttribute("user-id");
     socket.on("RECIEVE_REQUEST_FRIEND",(data)=>{
         if(myId == data.userB._id){
-            const friendRequest = friendAction.querySelector("a:nth-child(3) span");
+            const friendRequest = friendAction.querySelector("#accept-friend-nav span");
             if(friendRequest){
                 friendRequest.innerHTML = data.countRequestFriend;
             }
             else{
-                const friendRequestBtn = friendAction.querySelector("a:nth-child(3)");
+                const friendRequestBtn = friendAction.querySelector("#accept-friend-nav");
                 const span = document.createElement("span");
                 span.innerHTML = `${data.countRequestFriend}`;
                 friendRequestBtn.appendChild(span);

@@ -21,6 +21,7 @@
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
+    border: 2px solid #fff;
 }
 .inner-head .border-image img{
     width: 100%;
