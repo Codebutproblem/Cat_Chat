@@ -19,6 +19,7 @@ block main
                                 type="text"
                                 name="email"
                                 id="login-email"
+                                value= (rememberUser.email ? rememberUser.email : "")
                                 required
                             )
                             div(class="label") Email
@@ -28,12 +29,13 @@ block main
                                 type="password"
                                 name="password"
                                 id="login-password"
+                                value= (rememberUser.password ? rememberUser.password : "")
                                 required
                             )
                             div(class="label") Mật khẩu
                         div(class="my-3 d-flex justify-content-between")
                             div(class="remember-password")
-                                input(type="checkbox" id="remember-user" name="remember")
+                                input(type="checkbox" id="remember-user" name="remember" checked = rememberUser.remember)
                                 label(for="remember-user" class="mx-2") Nhớ tài khoản
                             div(class="forgot-password")
                                 a(href="/user/password/forgot") Quên mật khẩu? 

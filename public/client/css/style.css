@@ -186,6 +186,10 @@ body{
     font-weight: 400;
     letter-spacing: 1px;
 }
+.header .inner-login{
+    text-align: end;
+}
+
 @media (max-width:992px){
     .header .friend-action .nav-menu{
         justify-content: center;
@@ -215,6 +219,9 @@ body{
         top: 110%;
         left: 50%;
         transform: translateX(-50%);
+    }
+    .header .inner-login{
+        text-align: center;
     }
 }
 @media (max-width:576px){

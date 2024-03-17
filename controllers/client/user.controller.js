@@ -6,16 +6,35 @@ const md5 = require("md5");
 const onlineSocket = require("../../socket/client/online.socket");
 const uploadCloud = require("../../helpers/uploadCloud");
 module.exports.login = (req, res) => {
-
+    let rememberUser = {
+        remember: false
+    };
+    if(req.cookies.remember_user){
+        rememberUser.remember = true;
+        const user = JSON.parse(req.cookies.remember_user);
+        rememberUser.email = user.email;
+        rememberUser.password = user.password;
+    }
     res.render("client/pages/user/login", {
         pageTitle: "Đăng nhập",
+        rememberUser: rememberUser
     });
 }
 
 module.exports.loginPost = async (req, res) => {
     const email = req.body.email;
     const password = md5(req.body.password);
-
+    if(req.body.remember){
+        const timeExist = 365*24*60*60*1000;
+        res.cookie(
+            "remember_user",
+            JSON.stringify({email:email, password: req.body.password}), 
+            {expires: new Date(Date.now() + timeExist)}    
+        );
+    }
+    else{
+        res.clearCookie("remember_user");
+    }
     const user = await User.findOne({
         email: email,
         deleted: false
