@@ -1,5 +1,6 @@
 const User = require("../../models/user.model");
 const friendSocket = require("../../socket/client/friend.socket");
+const paginationHelper = require("../../helpers/pagination");
 module.exports.addFriend = async (req, res) => {
 
     friendSocket(res);
@@ -71,7 +72,12 @@ module.exports.friend = async (req, res) => {
     if(req.query.keyword){
         find.fullName = new RegExp(req.query.keyword,"i");
     }
-    const users = await User.find(find).select("-tokenUser -password");
+
+    const totalItem = await User.countDocuments(find);
+    let paginationObject = paginationHelper(1, 6, req.query, totalItem);
+    paginationObject.totalItem = totalItem;
+
+    const users = await User.find(find).limit(paginationObject.limitItem).skip(paginationObject.skip).select("-tokenUser -password");
     for(const user of users){
         const me = user.friendList.find((friend)=> friend.user_id == thisUser.id);
         if(me){
@@ -81,6 +87,7 @@ module.exports.friend = async (req, res) => {
     res.render("client/pages/friend/list-friend",{
         pageTitle: "Kết bạn",
         users: users,
-        page:"friend-list"
+        page:"friend-list",
+        pagination: paginationObject
     });
 }

@@ -117,12 +117,13 @@ body{
     position: absolute;
     display: inline-block;
     background: red;
+    color: #fff;
     width: 18px;
     height: 18px;
     line-height: 18px;
     border-radius: 50%;
-    top: -9px;
-    right: -9px;
+    top: -8px;
+    right: -14px;
 }
 
 

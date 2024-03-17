@@ -100,6 +100,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+.inner-users .list-friend-box{
+    margin-bottom: 40px;
+}
 
 .box-info-user{
     position: absolute;
@@ -262,5 +265,35 @@
     display: inline-block;
 }
 
-
-
+.inner-users .pagination{
+    margin: 0 auto;
+    width: 200px;
+    min-width: 200px;
+}
+.inner-users .pagination .nav-pagination{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+.inner-users .pagination .nav-pagination li{
+    margin: 0 5px;
+}
+.inner-users .pagination .nav-pagination li .pagination-button{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+.inner-users .pagination .nav-pagination li .pagination-button:hover,
+.inner-users .pagination .nav-pagination li .pagination-button.active{
+    background: var(--color-aqua);
+    border-color: var(--color-aqua);
+    color: #333;
+}
