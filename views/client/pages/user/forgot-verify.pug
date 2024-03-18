@@ -8,7 +8,7 @@ block main
         .row.justify-content-center
             .col-xl-6
                 div(class="user-box login-box mt-5")
-                    h1(class="text-center") Quên mật khẩu
+                    h1(class="text-center") Forgot Password
                     form(
                         action="/user/password/forgot-verify"
                         method="POST"
@@ -32,10 +32,10 @@ block main
                                 id="otp-forgot-verify"
                                 required
                             )
-                            div(class="label") Mã xác minh
+                            div(class="label") OTP
                         div(class="mb-3 form-box d-flex justify-content-between")
-                            button(class="btn btn-warning w-48" send-again-btn) Gửi lại
-                            button(type="submit" class="btn btn-primary w-48") Bước tiếp theo
+                            button(class="btn btn-warning w-48" send-again-btn) Send again
+                            button(type="submit" class="btn btn-primary w-48") Next step
     form(action=`/user/password/forgot-verify/send-again/${email}`, method="get" form-send-again)
     
 block script 

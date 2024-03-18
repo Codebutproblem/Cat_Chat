@@ -79,12 +79,24 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     let htmlFullName = "";
     let htmlImages = "";
     let htmlContent = "";
+    let actions = "";
     if (myId == data.userId) {
         div.classList.add("inner-outgoing");
+        actions = `
+            <div class="actions">
+                <span><i class="fa-solid fa-trash"></i></span>
+                <span><i class="fa-solid fa-quote-left"></i></span>
+            </div>
+        `
     }
     else {
         div.classList.add("inner-comming");
         htmlFullName = `</div class="inner-name">${data.fullName}</div>`
+        actions = `
+            <div class="actions">
+                <span><i class="fa-solid fa-quote-right"></i></span>
+            </div>
+        `
     }
 
     if (data.content) {
@@ -102,7 +114,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         }
         htmlImages += `</div>`;
     }
-    div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}`;
+    div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}${actions}`;
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
 

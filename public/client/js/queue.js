@@ -47,7 +47,7 @@ socket.on("MAKE_CLIENT_LEAVE_QUEUE",()=>{
     window.location.href = "/chat/stranger";
 });
 window.addEventListener('beforeunload', function (e) {
-    if(!left_room && room_chat_id){
+    if(!left_room){
         socket.emit("LEAVE_QUEUE", {
             userId: userId,
             room_id: room_chat_id

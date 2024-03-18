@@ -8,7 +8,7 @@ block main
         .row.justify-content-center
             .col-xl-6
                 div(class="user-box login-box mt-5")
-                    h1(class="text-center") Xác minh tài khoản
+                    h1(class="text-center") Verification
                     form(
                         action="/user/verification"
                         method="POST"
@@ -21,10 +21,10 @@ block main
                                 id="otp"
                                 required
                             )
-                            div(class="label") Mã xác minh
+                            div(class="label") Verification code
                         div(class="form-box d-flex justify-content-between")
-                            button(class="btn btn-warning w-48" send-again-btn) Gửi lại
-                            button(type="submit" class="btn btn-primary w-48") Xác nhận
+                            button(class="btn btn-warning w-48" send-again-btn) Send again
+                            button(type="submit" class="btn btn-primary w-48") Confirm
     form(action=`/user/verification/send-again/${email}`, method="get" form-send-again)
 block script 
     script(src="/client/js/user.js")                        

@@ -5,7 +5,7 @@ block style
 block main
     .main 
         div(user-id=user.id)
-        h1 Danh sách Bạn bè
+        h1 Friends
         .friend 
             .inner-search
                 form(action="" class="form-search")
@@ -23,8 +23,8 @@ block main
                                 .inner-info 
                                     a(href=`/chat/room/${user.our_room_id}` class="inner-name d-block") #{user.fullName}
                                     div(class="inner-button unfriend" data-user-id=user.id) 
-                                        button(class="unfriend-btn btn btn-sm btn-danger") Hủy kết bạn
-                                        button(class="unfriended-btn btn btn-sm btn-secondary") Đã hủy kết bạn
+                                        button(class="unfriend-btn btn btn-sm btn-danger") Unfriend
+                                        button(class="unfriended-btn btn btn-sm btn-secondary") Unfriended
                                 span(class=(user.statusOnline == "online" ? "online" : "") user-id=user.id)
                 +pagination(pagination)
                         

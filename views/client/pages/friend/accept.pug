@@ -5,7 +5,7 @@ block style
 block main
     .main 
         div(user-id=user.id)
-        h1 Lời mời kết bạn
+        h1 Friend Request
         .friend 
             .inner-search
                 form(action="" class="form-search")
@@ -23,10 +23,10 @@ block main
                                 .inner-info 
                                     div(class="inner-name") #{user.fullName}
                                     div(class="inner-button accept" data-user-id=user.id) 
-                                        button(class="accept-btn btn btn-sm btn-success") Đồng ý
-                                        button(class="refuse-btn btn btn-sm btn-danger ms-2") Từ chối
-                                        button(class="refused-btn btn btn-sm btn-secondary" disabled) Đã từ chối
-                                        button(class="accepted-btn btn btn-sm btn-primary" disabled) Đã chấp nhận
+                                        button(class="accept-btn btn btn-sm btn-success") Accept
+                                        button(class="refuse-btn btn btn-sm btn-danger ms-2") Refuse
+                                        button(class="refused-btn btn btn-sm btn-secondary" disabled) Refused
+                                        button(class="accepted-btn btn btn-sm btn-primary" disabled) Accepted
     each user in users
         +box-info-user(user)                                
 block script     

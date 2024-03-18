@@ -9,6 +9,16 @@
     margin-left: auto;
     margin-right: auto;
 }
+@media(max-width: 840px) {
+    .main .chat{
+        margin: 0 20px;
+    }
+}
+@media(max-width: 576px) {
+    .main .chat{
+        min-width: 520px;
+    }
+}
 .main .chat .inner-head{
     height: 70px;
     background: var(--color-main-1);
@@ -106,6 +116,21 @@
 }
 .main .chat .inner-body .inner-comming{
     margin: 10px;
+    position: relative;
+}
+.main .chat .inner-body .inner-comming .actions{
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+    left: 320px;
+    display: none;
+}
+.main .chat .inner-body .inner-comming:hover .actions{
+    display: inline-block;
+}
+.main .chat .inner-body .inner-comming .actions span{
+    cursor: pointer;
+    font-size: 16px;
 }
 .main .chat .inner-body .inner-comming .inner-image{
     width: 60px;
@@ -124,6 +149,7 @@
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .main .chat .inner-body .inner-outgoing .inner-content{
@@ -132,6 +158,22 @@
     margin-left: auto;
     padding: 5px 8px;
     border-radius: 10px;
+}
+.chat .inner-outgoing .actions{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 310px;
+    display: none;
+}
+.chat .inner-outgoing:hover .actions{
+    display: inline-block;
+}
+.chat .inner-outgoing .actions span{
+    margin: 0 8px;
+    cursor: pointer;
+    font-size: 16px;
 }
 .main .chat .inner-body .inner-comming .inner-content{
     background: #555;

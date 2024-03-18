@@ -24,14 +24,16 @@ module.exports = (userId, room_id) => {
             }
         });
         socket.on("LEAVE_QUEUE", async (data)=>{
-            await Roomchat.deleteOne({
-                typeRoom: "temporary",
-                "users.user_id": data.userId
-            });
-            await Stranger.deleteOne({
+            await Stranger.deleteMany({
                 user_id: data.userId
             });
-            socket.broadcast.to(data.room_id).emit("MAKE_CLIENT_LEAVE_QUEUE");
+            if(data.room_id){
+                await Roomchat.deleteMany({
+                    typeRoom: "temporary",
+                    "users.user_id": data.userId
+                });
+                socket.broadcast.to(data.room_id).emit("MAKE_CLIENT_LEAVE_QUEUE");
+            }
         });
     });
 }

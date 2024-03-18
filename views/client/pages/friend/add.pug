@@ -5,7 +5,7 @@ block style
 block main
     .main 
         div(user-id=user.id)
-        h1 Tìm kiếm bạn bè
+        h1 Search Friend
         .friend 
             .inner-search
                 form(action="" class="form-search")
@@ -24,11 +24,11 @@ block main
                                     div(class="inner-name") #{user.fullName}
                                     - const classButton = "inner-button " + user.classBtn
                                     div(class=classButton data-user-id=user.id) 
-                                        button(class="add-btn btn btn-sm btn-primary") Kết bạn
-                                        button(class="accept-btn btn btn-sm btn-success") Đồng ý
-                                        button(class="refuse-btn btn btn-sm btn-danger ms-2") Từ chối
-                                        button(class="cancel-btn btn btn-sm btn-secondary") Hủy
-                                        button(class="unfriend-btn btn btn-sm btn-danger") Hủy kết bạn
+                                        button(class="add-btn btn btn-sm btn-primary") Add
+                                        button(class="accept-btn btn btn-sm btn-success") Accept
+                                        button(class="refuse-btn btn btn-sm btn-danger ms-2") Refuse
+                                        button(class="cancel-btn btn btn-sm btn-secondary") Cancel
+                                        button(class="unfriend-btn btn btn-sm btn-danger") Unfriend
     each user in users
         +box-info-user(user)                                  
 block script     

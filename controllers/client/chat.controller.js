@@ -78,7 +78,7 @@ module.exports.inQueue = async (req, res) => {
         });
     }
     else {
-        await Stranger.deleteOne({user_id: idA});
+        await Stranger.deleteMany({user_id: idA});
         res.redirect("/chat/stranger");
     }
 }

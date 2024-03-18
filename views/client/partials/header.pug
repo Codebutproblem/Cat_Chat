@@ -1,29 +1,29 @@
 .header 
     .container
         .row.align-items-center
-            .col-md-3
+            .col-lg-3.col-md-3.col-sm-12
                 .inner-logo.d-flex.align-items-center
                     a(href="/" class="d-flex align-items-center")
                         .img-logo
                             img(src="/client/images/cat-logo-3.jpg", alt="Cat Logo")
                         h1(class="mx-3") Cat Chat
-            .col-md-6
+            .col-lg-6.col-md-9.col-sm-12
                 if (user)
                     .friend-action
                         ul(class="nav-menu")
                             li
-                                a(href="/" class=(page && page=="home"? "menu-text-aqua": "") ) Trang chủ
+                                a(href="/" class=(page && page=="home"? "menu-text-aqua": "") ) Home
                             li
-                                a(href="/friend/list" class=(page && page=="friend-list"? "menu-text-aqua": "")) Bạn bè
+                                a(href="/friend/list" class=(page && page=="friend-list"? "menu-text-aqua": "")) Friend
                             li
-                                a(href="/friend/add" class=(page && page=="add"? "menu-text-aqua": "")) Kết bạn
+                                a(href="/friend/add" class=(page && page=="add"? "menu-text-aqua": "")) Add 
                             li
-                                a(href="/friend/accept" class=(page && page=="accept"? "menu-text-aqua": "") id="accept-friend-nav") Lời mời kết bạn
+                                a(href="/friend/accept" class=(page && page=="accept"? "menu-text-aqua": "") id="accept-friend-nav") Request
                                     if (user.acceptFriendsList.length > 0)
                                         span #{user.acceptFriendsList.length}
                             li
-                                a(href="/chat/stranger" class=(page && page=="quick-chat"? "menu-text-aqua": "")) Nhắn tin nhanh
-            .col-md-3
+                                a(href="/chat/stranger" class=(page && page=="quick-chat"? "menu-text-aqua": "")) Quick Chat
+            .col-lg-3.col-md-12
                 if (user)
                     div(user-id=user.id)
                     .inner-user                                   

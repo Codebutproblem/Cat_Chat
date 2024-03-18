@@ -8,7 +8,7 @@ block main
         .row.justify-content-center
             .col-xl-6
                 div(class="user-box login-box mt-5")
-                    h1(class="text-center") Đổi mật khẩu
+                    h1(class="text-center") Reset Password
                     form(
                         action="/user/password/reset?_method=PATCH"
                         method="POST"
@@ -21,7 +21,7 @@ block main
                                 id="password-reset"
                                 required
                             )
-                            div(class="label") Mật khẩu
+                            div(class="label") Password
                         div(class="form-box")
                             input(
                                 class="form-input"
@@ -30,9 +30,9 @@ block main
                                 id="password-confirm"
                                 required
                             )
-                            div(class="label") Xác nhận mật khẩu
+                            div(class="label") Confirm password
                         div(class="mb-3 form-box")
-                            button(type="submit" class="btn btn-primary w-100") Xác nhận
+                            button(type="submit" class="btn btn-primary w-100") Confirm
 block script 
     script(src="/client/js/user.js")   
                           

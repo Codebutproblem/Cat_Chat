@@ -65,7 +65,7 @@ body{
     transform: scale(1.2);
 }
 .header .inner-logo h1{
-    font-weight: 400px;
+    margin-bottom: 0;
     font-size: 35px;
     color: var(--color-blue);
     transition: all 0.2s ease;
@@ -95,7 +95,7 @@ body{
     list-style: none;
 }
 .header .friend-action .nav-menu li{
-    margin: 0 10px;
+    margin: 0 14px;
 }
 .header .friend-action .nav-menu li a{
     display: inline-block;
@@ -194,10 +194,8 @@ body{
 @media (max-width:992px){
     .header .friend-action .nav-menu{
         justify-content: center;
-        margin-bottom: 24px;
     }
     .header .inner-logo{
-        margin-bottom: 24px;
         justify-content: center;
     }
     .header .inner-user{
@@ -205,6 +203,9 @@ body{
     }
 }
 @media (max-width:768px){
+    .header .inner-logo{
+        margin-bottom: 40px;
+    }
     .header .inner-logo h1{
         display: none;
     }
@@ -224,11 +225,13 @@ body{
     .header .inner-login{
         text-align: center;
     }
+    .header .friend-action .nav-menu{
+        margin-bottom: 24px;
+    }
 }
 @media (max-width:576px){
     .header .friend-action .nav-menu{
         flex-direction: column;
-        margin-bottom: 24px;
     }
     .header .friend-action .nav-menu li{
         margin-bottom: 12px;

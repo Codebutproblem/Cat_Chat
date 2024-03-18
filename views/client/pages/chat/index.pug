@@ -23,11 +23,17 @@ block main
                             if (chat.content)
                                 .inner-content 
                                     .message #{chat.content}
-                                    .time #{chat.timeDisplay}
+                                    .time #{chat.timeDisplay}                                        
                             if (chat.images && chat.images.length > 0)
                                 .inner-images
                                     each image in chat.images 
                                         img(src=image)
+                            .actions
+                                if (chat.user_id == user.id)
+                                    span <i class="fa-solid fa-trash"></i>
+                                    span <i class="fa-solid fa-quote-left"></i>
+                                else
+                                    span <i class="fa-solid fa-quote-right"></i>
             .inner-foot
                 .inner-preview-images 
                     input(type="file" multiple accept="image/*" id="file-upload-image" name="file-images" class="d-none")
