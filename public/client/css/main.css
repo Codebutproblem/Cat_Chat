@@ -8,17 +8,18 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 @media(max-width: 840px) {
     .main .chat{
         margin: 0 20px;
     }
 }
-@media(max-width: 576px) {
+/* @media(max-width: 576px) {
     .main .chat{
         min-width: 520px;
     }
-}
+} */
 .main .chat .inner-head{
     height: 70px;
     background: var(--color-main-1);
@@ -118,6 +119,13 @@
     margin: 10px;
     position: relative;
 }
+.main .chat .inner-body .inner-comming .deleted-content{
+    border: 1px solid #ddd;
+    background: transparent;
+    width: 300px;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
 .main .chat .inner-body .inner-comming .actions{
     position: absolute;
     top: 50%;
@@ -151,6 +159,16 @@
     margin-bottom: 10px;
     position: relative;
 }
+.main .chat .inner-body .inner-outgoing .deleted-content{
+    border: 1px solid #ddd;
+    width: 300px;
+    margin-left: auto;
+    padding: 5px 8px;
+    border-radius: 10px;
+    background: transparent;
+    font-style: italic;
+}
+
 
 .main .chat .inner-body .inner-outgoing .inner-content{
     background: var(--color-blue);
@@ -187,11 +205,9 @@
     object-fit: cover;
 }
 .main .chat .inner-body .inner-images img{
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    background: #efefef;
-    padding: 10px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
     margin: 5px;
     border-radius: 5px;
 }
@@ -230,7 +246,6 @@
     width: 100px;
     height: 100px;
     border-radius: 5px;
-    padding: 10px;
     background: #efefef;
     margin: 5px;
     position: relative;
@@ -300,4 +315,33 @@
     100%{
         opacity: 0.1;
     }
+}
+
+
+.chat .delete-message-background{
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000053;
+}
+.chat .delete-message-background .delete-message-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    background-color: #444;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.chat .delete-message-background .delete-message-box .inner-content{
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 18px;
 }

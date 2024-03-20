@@ -26,6 +26,38 @@ function scrollToBottom() {
     }
     window.scrollTo(0, document.body.scrollHeight);
 }
+// Hàm lắng nghe sự kiện xóa tin nhắn
+function deleteMessageListen(button){
+    button.addEventListener("click", ()=>{
+        const chatId = button.closest("[chat-id]").getAttribute("chat-id");
+        const chatBox = document.querySelector(".chat");
+        const deleteMessageBackground = document.createElement("div");
+        deleteMessageBackground.classList.add("delete-message-background");
+        deleteMessageBackground.setAttribute("chat-id",chatId);
+        deleteMessageBackground.innerHTML=`
+            <div class="delete-message-box">
+                <div class="inner-content">Delete message?</div>
+                <div class="inner-button">
+                    <button class="btn btn-warning mx-2 no-btn">No</button>
+                    <button class="btn btn-danger mx-2 yes-btn">Yes</button>
+                </div>
+            </div>
+        `;
+        const noBtn = deleteMessageBackground.querySelector(".no-btn");
+        noBtn.addEventListener("click", ()=>{
+            chatBox.removeChild(deleteMessageBackground);
+        });
+        const yesBtn = deleteMessageBackground.querySelector(".yes-btn");
+        yesBtn.addEventListener("click", ()=>{
+            socket.emit("DELETE_MESSAGE", chatId);
+            chatBox.removeChild(deleteMessageBackground);
+        });
+        chatBox.appendChild(deleteMessageBackground);
+        console.log(chatBox);
+    });
+}
+
+
 const soundMessage = document.getElementById("audio-message");
 scrollToBottom();
 reviewFullImage();
@@ -84,8 +116,8 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         div.classList.add("inner-outgoing");
         actions = `
             <div class="actions">
-                <span><i class="fa-solid fa-trash"></i></span>
-                <span><i class="fa-solid fa-quote-left"></i></span>
+                <span class="delete-message-button"><i class="fa-solid fa-trash"></i></span>
+                <span class="respone-message-button"><i class="fa-solid fa-quote-left"></i></span>
             </div>
         `
     }
@@ -94,7 +126,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         htmlFullName = `</div class="inner-name">${data.fullName}</div>`
         actions = `
             <div class="actions">
-                <span><i class="fa-solid fa-quote-right"></i></span>
+                <span class="respone-message-button"><i class="fa-solid fa-quote-right"></i></span>
             </div>
         `
     }
@@ -116,8 +148,16 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     }
     div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}${actions}`;
     body.appendChild(div);
-    body.scrollTop = body.scrollHeight;
 
+
+    if(data.chatId){
+        div.setAttribute("chat-id",data.chatId);
+    }
+    if(myId == data.userId){
+        const deleteMessageBin = div.querySelector(".actions .delete-message-button");
+        console.log(deleteMessageBin);
+        deleteMessageListen(deleteMessageBin);
+    }
     // Thông báo tin nhắn nếu người dùng không ở trang
     if(myId != data.userId && activeSound){
         soundMessage.addEventListener("click", function() {
@@ -125,6 +165,8 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         });
         soundMessage.click();
     }
+
+    body.scrollTop = body.scrollHeight;
 });
 
 
@@ -246,7 +288,7 @@ if(uploadInput){
                 div.classList.add("box-preview");
                 div.innerHTML = `
                     <img src=${url} />
-                    <span class="delete-show-image">X</span>
+                    <span class="delete-show-image"><i class="fa-solid fa-x"></i></span>
                 `;
                 previewImage.appendChild(div);
                 const span = div.querySelector("span");
@@ -262,4 +304,27 @@ if(uploadInput){
         window.scrollTo(0, document.body.scrollHeight);
     });
 
+}
+
+
+
+// Delete message
+const deleteMessageBins = document.querySelectorAll(".delete-message-button");
+if(deleteMessageBins && deleteMessageBins.length > 0){
+    deleteMessageBins.forEach(button =>{
+       deleteMessageListen(button);
+    });
+}
+// Display delete chat
+socket.on("SERVER_RETURN_DELETE_MESSAGE",(data)=>{
+    const deletedMessage = document.querySelector(`.inner-body [chat-id="${data.chatId}"]`);
+    deletedMessage.innerHTML=`<div class="deleted-content"> The message has been deleted </div>`;
+});
+
+
+
+// Answer message
+const answerMessageButtons = document.querySelectorAll(".respone-message-button")
+if(answerMessageButtons && answerMessageButtons.length > 0){
+    
 }

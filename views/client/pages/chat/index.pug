@@ -17,23 +17,26 @@ block main
             .inner-body
                 if (chats)
                     each chat,index in chats
-                        div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-comming"))
-                            if (chat.user_id != user.id)
-                                .inner-name #{chat.infoUser.fullName}
-                            if (chat.content)
-                                .inner-content 
-                                    .message #{chat.content}
-                                    .time #{chat.timeDisplay}                                        
-                            if (chat.images && chat.images.length > 0)
-                                .inner-images
-                                    each image in chat.images 
-                                        img(src=image)
-                            .actions
-                                if (chat.user_id == user.id)
-                                    span <i class="fa-solid fa-trash"></i>
-                                    span <i class="fa-solid fa-quote-left"></i>
-                                else
-                                    span <i class="fa-solid fa-quote-right"></i>
+                        div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-comming") chat-id=chat.id)
+                            if (chat.deleted == false)
+                                if (chat.user_id != user.id)
+                                    .inner-name #{chat.infoUser.fullName}
+                                if (chat.content)
+                                    .inner-content 
+                                        .message #{chat.content}
+                                        .time #{chat.timeDisplay}                                        
+                                if (chat.images && chat.images.length > 0)
+                                    .inner-images
+                                        each image in chat.images 
+                                            img(src=image)
+                                .actions
+                                    if (chat.user_id == user.id)
+                                        span(class="delete-message-button") <i class="fa-solid fa-trash"></i>
+                                        span(class="respone-message-button") <i class="fa-solid fa-quote-left"></i>
+                                    else
+                                        span(class="respone-message-button") <i class="fa-solid fa-quote-right"></i>
+                            else 
+                                .deleted-content The message has been deleted
             .inner-foot
                 .inner-preview-images 
                     input(type="file" multiple accept="image/*" id="file-upload-image" name="file-images" class="d-none")
@@ -55,7 +58,7 @@ block main
                         <i class="fa-solid fa-face-smile"></i>
                     
                     button(class="form-btn mx-2")
-                        <i class="fa-solid fa-paper-plane"></i>
+                        <i class="fa-solid fa-paper-plane"></i> 
     div(class="tooltip" role="tooltip")
         emoji-picker
     audio(controls id="audio-message" class="d-none")

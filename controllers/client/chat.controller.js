@@ -11,8 +11,7 @@ module.exports.index = async (req, res) => {
     const idA = res.locals.user.id;
     chatSocket(res, room_id, "friend");
     const chats = await Chat.find({
-        room_chat_id: room_id,
-        deleted: false
+        room_chat_id: room_id
     });
 
     const roomchat = await Roomchat.findOne({
