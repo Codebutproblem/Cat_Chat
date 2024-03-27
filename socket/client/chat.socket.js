@@ -17,9 +17,10 @@ module.exports = (res, room_id, typeRoom) => {
                 const chat = new Chat({
                     user_id: user.id,
                     content: data.content,
-                    images: images,
+                    images: images.slice(0,4),
                     room_chat_id: room_id,
-                    sendAt: new Date()
+                    sendAt: new Date(),
+                    answer_id: data.answerId
                 });
                 await chat.save();
                 chatId = chat.id;
@@ -31,7 +32,8 @@ module.exports = (res, room_id, typeRoom) => {
                 gender: user.gender,
                 content: data.content,
                 images: images,
-                chatId: chatId
+                chatId: chatId,
+                answerId: data.answerId
             });
         });
 

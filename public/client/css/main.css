@@ -62,7 +62,7 @@
 }
 .main .chat .inner-body{
     height: 560px;
-    overflow: auto;
+    overflow-y: auto;
     color: #fff;
     padding: 5px;
     position: relative;
@@ -106,14 +106,50 @@
     color: var(--color-aqua);
     background: #444;
 }
-
-
-.main .chat .inner-body .message{
-    font-size: 18px;
+.inner-foot .answer-message{
+    width: 300px;
+    max-width: 300px;
+    background: #555;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    color: #fff;
+    border: 1px solid #ddd;
+    position: relative;
 }
-.main .chat .inner-body .time{
+.inner-foot .answer-message .inner-name{
+    margin-left: 6px;
+    margin-bottom: 2px;
+}
+.inner-foot .answer-message .inner-content{
+    background: #333;
+    padding: 2px 6px;
+    padding-right: 12px;
+    border-radius: 10px;
+}
+.inner-foot .answer-message .inner-images img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 5px;
+}
+.inner-foot .answer-message .close-button{
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.main .chat .message{
+    font-size: 18px;
+    margin-left: 5px;
+}
+.main .chat .time{
     margin-top: 5px;
     font-size: 12px;
+    margin-left: 5px;
 }
 .main .chat .inner-body .inner-comming{
     margin: 10px;
@@ -169,7 +205,11 @@
     font-style: italic;
 }
 
-
+.main .chat .inner-body .inner-outgoing .inner-content .answer-content{
+    background: #e848b6;
+    padding: 4px 8px;
+    border-radius: 10px;
+}
 .main .chat .inner-body .inner-outgoing .inner-content{
     background: var(--color-blue);
     width: 300px;
@@ -193,6 +233,11 @@
     cursor: pointer;
     font-size: 16px;
 }
+.main .chat .inner-body .inner-comming .inner-content .answer-content{
+    padding: 4px 8px;
+    background: #333;
+    border-radius: 10px;
+}
 .main .chat .inner-body .inner-comming .inner-content{
     background: #555;
     width: 300px;
@@ -215,11 +260,9 @@
     width: 280px;
 }
 .main .chat .inner-body .inner-outgoing .inner-images{
-    margin-left: auto;
-    text-align: right;
+    text-align: left;
     display: flex;
     flex-wrap: wrap;
-    justify-content: end;
 }
 .main .chat .inner-body .inner-comming .inner-images{
     text-align: left;
@@ -234,11 +277,11 @@
     transform: translate(-50%, -50%);
 }
 
-.main .inner-foot .inner-preview-images{
+.main .inner-foot .inner-preview{
     position: absolute;
     bottom: 100%;
 }
-.main .inner-foot .inner-preview-images .preview-images{
+.main .inner-foot .inner-preview .preview-images{
     height: auto;
     display: flex;
 }
@@ -344,4 +387,19 @@
     color: #fff;
     margin-bottom: 30px;
     font-size: 18px;
+}
+
+
+
+.main .chat .inner-body .inner-outgoing .inner-content .answer-content img{
+    width: 60px;
+    height: 60px;
+}
+
+.main .chat .inner-body .inner-comming .inner-content .answer-content img{
+    width: 60px;
+    height: 60px;
+}
+.main .chat .inner-body .inner-content .answer-content{
+    cursor: pointer;
 }

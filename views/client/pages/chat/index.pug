@@ -21,14 +21,20 @@ block main
                             if (chat.deleted == false)
                                 if (chat.user_id != user.id)
                                     .inner-name #{chat.infoUser.fullName}
-                                if (chat.content)
-                                    .inner-content 
-                                        .message #{chat.content}
-                                        .time #{chat.timeDisplay}                                        
-                                if (chat.images && chat.images.length > 0)
-                                    .inner-images
-                                        each image in chat.images 
-                                            img(src=image)
+                                .inner-content 
+                                    if (chat.answerChat)
+                                        div(class="answer-content" answer-id=chat.answerChat.id)
+                                            .inner-message #{chat.answerChat.content} 
+                                            .inner-images 
+                                                each image in chat.answerChat.images 
+                                                    img(src=image)
+                                    if (chat.content)
+                                        .message #{chat.content}                                        
+                                    if (chat.images && chat.images.length > 0)
+                                        .inner-images
+                                            each image in chat.images 
+                                                img(src=image)
+                                    .time #{chat.timeDisplay}
                                 .actions
                                     if (chat.user_id == user.id)
                                         span(class="delete-message-button") <i class="fa-solid fa-trash"></i>
@@ -38,7 +44,7 @@ block main
                             else 
                                 .deleted-content The message has been deleted
             .inner-foot
-                .inner-preview-images 
+                .inner-preview 
                     input(type="file" multiple accept="image/*" id="file-upload-image" name="file-images" class="d-none")
                     div(class="preview-images") 
                 form(action="", class="inner-form d-flex align-items-center ")

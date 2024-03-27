@@ -56,7 +56,55 @@ function deleteMessageListen(button){
         console.log(chatBox);
     });
 }
+// Hàm lắng nghe sự kiện trả lời tin nhắn
+function answerMessageListen(button){
+    button.addEventListener("click", ()=>{
+        const messageBox = button.closest("[chat-id]");
+        let innerName = "";
+        let innerContent = "";
+        if(messageBox.querySelector(".inner-name")){
+            innerName = messageBox.querySelector(".inner-name").innerHTML;
+        }
+        if(messageBox.querySelector(".inner-content")){
+            innerContent = messageBox.querySelector(".inner-content").innerHTML;
+        }
+        const chatId = messageBox.getAttribute("chat-id");
+        const innerPreview = document.querySelector(".inner-foot .inner-preview");
+        if(innerPreview.querySelector(".answer-message")){
+            innerPreview.removeChild(innerPreview.querySelector(".answer-message"));
+        }
+        const answerMessageBox = document.createElement("div");
+        answerMessageBox.classList.add("answer-message");
+        answerMessageBox.setAttribute("chat-id",chatId);
+        answerMessageBox.innerHTML = `
+            <div class="inner-name">${innerName ? innerName: "ME"}</div>
+            <div class="inner-content">${innerContent}</div>
+            <span class="close-button"><i class="fa-regular fa-circle-xmark"></i></span>
+        `;
+        const closeButton = answerMessageBox.querySelector(".close-button");
+        closeButton.addEventListener("click", ()=>{
+            innerPreview.removeChild(answerMessageBox);
+        });
+        const previewImages = innerPreview.querySelector(".preview-images");
+        innerPreview.insertBefore(answerMessageBox,previewImages);
+        const messageInput = document.querySelector(".inner-form input[name='content']");
+        messageInput.focus();
+    });
+}
 
+// Hàm lắng nghe sự kiện khi người dùng click vào answer content
+function clickAnswerContentListen(content){
+    content.addEventListener("click",()=>{
+        const innerBody = document.querySelector(".inner-body");
+        const messageContent = innerBody.querySelector(`[chat-id="${content.getAttribute("answer-id")}"] .inner-content`);
+        
+        messageContent.scrollIntoView({ 
+            behavior: 'smooth', // Để có hiệu ứng cuộn mượt
+            block: 'start',     // Cuộn đến phía trên của phần tử con
+            inline: 'nearest'   // Cuộn đến phía gần nhất của phần tử cha
+        });
+    });
+}
 
 const soundMessage = document.getElementById("audio-message");
 scrollToBottom();
@@ -85,20 +133,25 @@ if (formSendData) {
         const content = event.target.elements.content.value;
         const uploadInput = document.querySelector("#file-upload-image");
         const images = [];
-        for(let i = 0; i< uploadInput.files.length; i++){
+        for(let i = 0; i< Math.min(4, uploadInput.files.length); i++){
             if(!uploadInput.files[i].notSelected){
                 images.push(uploadInput.files[i])
             }
         }
         if (content || images.length > 0) {
+            const answerMessageBox = document.querySelector(".inner-foot .inner-preview .answer-message");
             socket.emit("CLIENT_SEND_MESSAGE", {
                 content: content,
-                images: images
+                images: images,
+                answerId: answerMessageBox ? answerMessageBox.getAttribute("chat-id") : ""
             });
             event.target.elements.content.value = "";
             uploadInput.value = "";
-            const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
+            const previewImage = document.querySelector(".chat .inner-preview .preview-images");
             previewImage.innerHTML = "";
+            const innerPreview = document.querySelector(".inner-foot .inner-preview");
+            const answerBox = innerPreview.querySelector(".answer-message");
+            innerPreview.removeChild(answerBox);
             socket.emit("CLIENT_SEND_TYPING", "hidden");
         }
     });
@@ -112,6 +165,17 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     let htmlImages = "";
     let htmlContent = "";
     let actions = "";
+    let contentAnswer = "";
+    const answerChatContent = document.querySelector(`[chat-id="${data.answerId}"] .inner-content`);
+    if(answerChatContent){
+        contentAnswer = `
+            <div class="answer-content" answer-id="${data.answerId}">
+                <div class="inner-message">${answerChatContent.querySelector(".message") ? answerChatContent.querySelector(".message").innerHTML : ""}</div>
+                <div class="inner-images">${answerChatContent.querySelector(".inner-images") ? answerChatContent.querySelector(".inner-images").innerHTML : ""}</div>
+            </div>
+        `;
+    }
+    
     if (myId == data.userId) {
         div.classList.add("inner-outgoing");
         actions = `
@@ -130,15 +194,6 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
             </div>
         `
     }
-
-    if (data.content) {
-        htmlContent = `
-        <div class="inner-content">
-            <div class="message">${data.content}</div>
-            <div class="time">${getCurrentTime()}</div>
-       </div>
-       `
-    }
     if (data.images && data.images.length > 0) {
         htmlImages += `<div class="inner-images">`;
         for (const image of data.images) {
@@ -146,9 +201,22 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         }
         htmlImages += `</div>`;
     }
-    div.innerHTML = `${htmlFullName}${htmlContent}${htmlImages}${actions}`;
+    htmlContent = `
+        <div class="inner-content">
+            ${contentAnswer}
+            <div class="message">${data.content ? data.content : ""}</div>
+            ${htmlImages}
+            <div class="time">${getCurrentTime()}</div>
+        </div>
+    `;
+    
+    div.innerHTML = `${htmlFullName}${htmlContent}${actions}`;
     body.appendChild(div);
 
+    if(div.querySelector(".answer-content")){
+        const answerContent = div.querySelector(".answer-content");
+        clickAnswerContentListen(answerContent);
+    }
 
     if(data.chatId){
         div.setAttribute("chat-id",data.chatId);
@@ -158,6 +226,8 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         console.log(deleteMessageBin);
         deleteMessageListen(deleteMessageBin);
     }
+    const answerMessageBtn = div.querySelector(".actions .respone-message-button");
+    answerMessageListen(answerMessageBtn);
     // Thông báo tin nhắn nếu người dùng không ở trang
     if(myId != data.userId && activeSound){
         soundMessage.addEventListener("click", function() {
@@ -278,9 +348,9 @@ if(temporaryRoom){
 
 const uploadInput = document.querySelector("#file-upload-image");
 if(uploadInput){
-    const previewImage = document.querySelector(".chat .inner-preview-images .preview-images");
+    const previewImage = document.querySelector(".chat .inner-preview .preview-images");
     uploadInput.addEventListener("change", (event)=>{
-        for(let i = 0; i < event.target.files.length; i++){
+        for(let i = 0; i < Math.min(4,event.target.files.length); i++){
             const file = event.target.files[i];
             if(file){
                 const url = URL.createObjectURL(file);
@@ -298,7 +368,7 @@ if(uploadInput){
                 }); 
             }
         }
-        const innerPreviewImage = document.querySelector(".chat .inner-preview-images");
+        const innerPreviewImage = document.querySelector(".chat .inner-preview");
         const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
         innerPreviewImage.style.bottom = `calc(100% + ${scrollBarWidth}px)`
         window.scrollTo(0, document.body.scrollHeight);
@@ -326,5 +396,14 @@ socket.on("SERVER_RETURN_DELETE_MESSAGE",(data)=>{
 // Answer message
 const answerMessageButtons = document.querySelectorAll(".respone-message-button")
 if(answerMessageButtons && answerMessageButtons.length > 0){
-    
+    answerMessageButtons.forEach(button => {
+        answerMessageListen(button);
+    });
+}
+
+const answerContents = document.querySelectorAll(".inner-content .answer-content");
+if(answerContents.length > 0){
+    answerContents.forEach(content => {
+        clickAnswerContentListen(content);
+    });
 }

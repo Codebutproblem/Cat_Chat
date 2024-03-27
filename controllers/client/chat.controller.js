@@ -32,6 +32,16 @@ module.exports.index = async (req, res) => {
         });
         chat.timeDisplay = Format.formatDateTime(chat.sendAt);
         chat.infoUser = infoUser;
+
+        
+        if(chat.answer_id){
+            const answerChat = await Chat.findOne({
+                _id: chat.answer_id
+            });
+            if(answerChat){
+                chat.answerChat = answerChat;
+            }
+        }
     }
     res.render("client/pages/chat/index", {
         pageTitle: "Cat Chat",
