@@ -1,0 +1,10 @@
+extends ../../layouts/default.pug
+block style 
+    link(rel="stylesheet", href="/client/css/queue.css")
+
+block main 
+    div(class="main pt-5 d-flex flex-column align-items-center text-white text-center" user-id=user.id)
+        h1(class="mb-5") Searching...
+        a(href="/chat/stranger", class="btn btn-warning btn-lg") Return
+block script 
+    script(src="/client/js/queue.js") 

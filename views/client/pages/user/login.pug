@@ -1,0 +1,56 @@
+extends ../../layouts/default.pug
+
+block style 
+    link(rel="stylesheet", href="/client/css/user.css")
+    link(rel="stylesheet", href="/client/css/test-account.css")
+
+block main
+    .container
+        .row.justify-content-center
+            .col-xl-6
+                div(class="user-box login-box mt-5")
+                    h1(class="text-center") Login
+                    form(
+                        action="/user/login"
+                        method="POST"
+                    )
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="text"
+                                name="email"
+                                id="login-email"
+                                value= (rememberUser.email ? rememberUser.email : "")
+                                required
+                            )
+                            div(class="label") Email
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="password"
+                                name="password"
+                                id="login-password"
+                                value= (rememberUser.password ? rememberUser.password : "")
+                                required
+                            )
+                            div(class="label") Password
+                        div(class="my-3 d-flex justify-content-between")
+                            div(class="remember-password")
+                                input(type="checkbox" id="remember-user" name="remember" checked = rememberUser.remember)
+                                label(for="remember-user" class="mx-2") Remember me
+                            div(class="forgot-password")
+                                a(href="/user/password/forgot") Forgot password? 
+                        div(class="my-3")
+                            button(type="submit" class="btn btn-primary w-100") Join now
+                    p(class="text-center") Don't have an account? 
+                        a(href="/user/register") Register now
+                .test-account-box
+                    h3 Trial Account 
+                    .test-account 
+                        .account-text Email: leminhvu0201@gmail.com
+                        .account-text Password: 123
+                    .test-account 
+                        .account-text Email: hanalhu123@gmail.com
+                        .account-text Password: 123
+block script 
+    script(src="/client/js/user.js")  

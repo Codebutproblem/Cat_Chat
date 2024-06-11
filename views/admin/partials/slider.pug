@@ -1,0 +1,43 @@
+//- .slider
+//-     .inner-menu 
+//-         ul 
+//-             li 
+//-                 a(href=`${prefixAdmin}/home`) Home
+//-             li 
+//-                 a(href=`${prefixAdmin}/users`) Danh sách người dùng
+//-             li 
+//-                 a(href=`${prefixAdmin}/posts`) Bài viết
+//-             if (account.role && account.role == "all")
+//-                 li 
+//-                     a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản admin
+
+.wrapper
+    aside#sidebar
+        .d-flex
+            button.toggle-btn(type='button')
+                i.lni.lni-grid-alt
+            .sidebar-logo
+                a(href='#') #{account.fullName}
+        ul.sidebar-nav
+            li.sidebar-item
+            a.sidebar-link(href=`${prefixAdmin}/home`)
+                i.lni.lni-user
+                span Thống kê
+            li.sidebar-item
+            a.sidebar-link(href=`${prefixAdmin}/posts`)
+                i.lni.lni-agenda
+                span Bài viết
+            li.sidebar-item
+            a.sidebar-link(href=`${prefixAdmin}/users`)
+                i.lni.lni-protection
+                span Người dùng
+            if (account.role && account.role == "all")
+                li.sidebar-item
+                a.sidebar-link(href=`${prefixAdmin}/accounts`)
+                    i.lni.lni-layout
+                    span Cấp quyền Admin
+        .sidebar-footer
+            a.sidebar-link(href='#')
+            i.lni.lni-exit
+            span Logout
+    

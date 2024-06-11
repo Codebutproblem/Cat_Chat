@@ -1,0 +1,413 @@
+.main{
+    padding: 40px 0;
+}
+.main .chat{
+    border: 1px solid #777;
+    border-radius: 15px;
+    overflow: hidden;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+@media(max-width: 840px) {
+    .main .chat{
+        margin: 0 20px;
+    }
+}
+
+
+.main .chat .inner-head{
+    height: 70px;
+    background: var(--color-main-1);
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+}
+.inner-head .border-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+}
+.inner-head .border-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.inner-head .inner-avatar{
+    position: relative;
+}
+.inner-head .inner-avatar .online{
+    width: 12px;
+    height: 12px;
+    display: none;
+    background: #00d800;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+}
+.inner-head .inner-avatar .online{
+    display: block;
+}
+.inner-head .inner-name{
+    margin-left: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+.inner-head .actions-button{
+    margin-left: auto;
+}
+.inner-head .actions-button button{
+    margin: 0 6px;
+}
+
+
+.main .chat .inner-body{
+    height: 560px;
+    overflow-y: auto;
+    color: #fff;
+    padding: 5px;
+    position: relative;
+    background-color: #16202D;
+}
+.main .chat .inner-foot{
+    padding: 13px;
+    background: var(--color-main-1);
+    position: relative;
+}
+.main .chat .inner-foot .inner-form{
+    width: 100%;
+}
+.main .chat .inner-foot input{
+    border-radius: 15px;
+    padding: 2px 10px;
+    line-height: 25px;
+    width: 80%;
+    line-height: 30px;
+    outline: none;
+    background: #555;
+    border: 1px solid #555;
+    color: #fff;
+}
+.main .chat .inner-foot input::placeholder{
+    color: #999;
+}
+.main .chat .inner-foot .form-btn{
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    transition: all 0.2s ease;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.main .chat .inner-foot .form-btn:hover{
+    color: var(--color-aqua);
+    background: #444;
+}
+.inner-foot .answer-message{
+    width: 300px;
+    max-width: 300px;
+    background: #555;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    color: #fff;
+    border: 1px solid #ddd;
+    position: relative;
+}
+.inner-foot .answer-message .inner-name{
+    margin-left: 6px;
+    margin-bottom: 2px;
+}
+.inner-foot .answer-message .inner-content{
+    background: #333;
+    padding: 2px 6px;
+    padding-right: 12px;
+    border-radius: 10px;
+}
+.inner-foot .answer-message .inner-images img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 5px;
+}
+.inner-foot .answer-message .close-button{
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.main .chat .message{
+    font-size: 18px;
+    margin-left: 5px;
+    text-wrap: wrap;
+}
+.main .chat .time{
+    margin-top: 5px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.main .chat .inner-body .inner-comming{
+    margin: 10px;
+    position: relative;
+}
+.main .chat .inner-body .inner-comming .deleted-content{
+    border: 1px solid #ddd;
+    background: transparent;
+    width: 300px;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.main .chat .inner-body .inner-comming .actions{
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+    left: 320px;
+    display: none;
+}
+.main .chat .inner-body .inner-comming:hover .actions{
+    display: inline-block;
+}
+.main .chat .inner-body .inner-comming .actions span{
+    cursor: pointer;
+    font-size: 16px;
+}
+.main .chat .inner-body .inner-comming .inner-image{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.main .chat .inner-body .inner-comming .inner-name{
+    font-size: 18px;
+    margin-left: 2px;
+}
+
+.main .chat .inner-body .inner-outgoing{
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.main .chat .inner-body .inner-outgoing .deleted-content{
+    border: 1px solid #ddd;
+    width: 300px;
+    margin-left: auto;
+    padding: 5px 8px;
+    border-radius: 10px;
+    background: transparent;
+    font-style: italic;
+}
+
+.main .chat .inner-body .inner-outgoing .inner-content .answer-content{
+    background: #e848b6;
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+.main .chat .inner-body .inner-outgoing .inner-content{
+    background: var(--color-blue);
+    width: 300px;
+    margin-left: auto;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.chat .inner-outgoing .actions{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 310px;
+    display: none;
+}
+.chat .inner-outgoing:hover .actions{
+    display: inline-block;
+}
+.chat .inner-outgoing .actions span{
+    margin: 0 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.main .chat .inner-body .inner-comming .inner-content .answer-content{
+    padding: 4px 8px;
+    background: #333;
+    border-radius: 10px;
+}
+.main .chat .inner-body .inner-comming .inner-content{
+    background: #555;
+    width: 300px;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.main .chat .inner-body .inner-comming img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main .chat .inner-body .inner-images img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 5px;
+}
+.main .chat .inner-body .inner-images{
+    width: 280px;
+}
+.main .chat .inner-body .inner-outgoing .inner-images{
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+.main .chat .inner-body .inner-comming .inner-images{
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main .chat .inner-body .stranger-chat{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.main .inner-foot .inner-preview{
+    position: absolute;
+    bottom: 100%;
+}
+.main .inner-foot .inner-preview .preview-images{
+    height: auto;
+    display: flex;
+}
+.main .preview-images .box-preview{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    background: #efefef;
+    margin: 5px;
+    position: relative;
+}
+.main .preview-images .box-preview .delete-show-image{
+    display: block;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--color-blue);
+    position: absolute;
+    top:-8px;
+    right: -8px;
+    cursor: pointer;
+}
+.main .preview-images img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.tooltip{
+    display: none;
+}
+
+.tooltip.shown {
+    display: block;
+    opacity: 1;
+}
+
+.box-typing{
+    margin: 10px;
+}
+.box-typing .inner-dots{
+    height: 30px;
+    width: 60px;
+    background: #555;
+    border-radius: 45px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box-typing .inner-dots span{
+    animation: blink 1.5s infinite;
+    height: 5px;
+    width: 5px;
+    background: #eee;
+    border-radius: 50%;
+    margin: 0 3px;
+}
+.box-typing .inner-dots span:nth-child(2){
+    animation-delay: 0.2s;
+}
+.box-typing .inner-dots span:nth-child(3){
+    animation-delay: 0.4s;
+}
+@keyframes blink{
+    0%{
+        opacity: 0.1;
+    }
+    20%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.1;
+    }
+}
+
+
+.chat .delete-message-background{
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000053;
+}
+.chat .delete-message-background .delete-message-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    background-color: #444;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.chat .delete-message-background .delete-message-box .inner-content{
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+
+
+.main .chat .inner-body .inner-outgoing .inner-content .answer-content img{
+    width: 60px;
+    height: 60px;
+}
+
+.main .chat .inner-body .inner-comming .inner-content .answer-content img{
+    width: 60px;
+    height: 60px;
+}
+.main .chat .inner-body .inner-content .answer-content{
+    cursor: pointer;
+}

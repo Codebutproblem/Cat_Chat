@@ -1,0 +1,17 @@
+extends ../../layouts/default.pug
+block style
+    link(rel="stylesheet", href="/client/css/home.css")
+block main
+    .home
+        
+        .row.justify-content-center 
+            .col-6
+                .inner-box.mt-3.text-white 
+                    h1(class="text-center header-content text-primary") Notification
+                    .main-part
+                        each post in posts
+                            .notification-box.mb-3
+                                h4(class="notification-title") #{post.title}
+                                div(class="notification-content") !{post.content}
+                                div(class="notification-footer")
+                                    span #{post.createdAtStr}

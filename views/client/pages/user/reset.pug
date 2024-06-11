@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+
+block style 
+    link(rel="stylesheet", href="/client/css/user.css")
+
+block main
+    .container
+        .row.justify-content-center
+            .col-xl-6
+                div(class="user-box login-box mt-5")
+                    h1(class="text-center") Reset Password
+                    form(
+                        action="/user/password/reset?_method=PATCH"
+                        method="POST"
+                    )
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="password"
+                                name="password"
+                                id="password-reset"
+                                required
+                            )
+                            div(class="label") Password
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="password"
+                                name="password_confirm"
+                                id="password-confirm"
+                                required
+                            )
+                            div(class="label") Confirm password
+                        div(class="mb-3 form-box")
+                            button(type="submit" class="btn btn-primary w-100") Confirm
+block script 
+    script(src="/client/js/user.js")   
+                          

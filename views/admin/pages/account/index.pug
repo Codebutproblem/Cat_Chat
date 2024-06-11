@@ -1,0 +1,49 @@
+extend ../../layouts/default.pug
+include  ../../mixins/pagination.pug
+block styles
+    link(rel="stylesheet", href="/admin/css/user.css")
+block main
+    .main 
+        .card
+            .card-header 
+                h3(class="card-title") Danh sách admin
+                div(class="card-tools")
+                    form(action="/admin/accounts" method="GET" class="form-search")
+                        input(type="text" name="keyword"  placeholder="Tìm kiếm người dùng")
+                        button(type="submit" class="btn btn-primary") Tìm kiếm    
+                    a(href="/admin/accounts/create" class="btn btn-success my-3 ms-5") <i class="fa-solid fa-plus"></i> Thêm mới        
+            
+            .card.border-0
+                .card-body
+                    table.table
+                        thead
+                        tr
+                            th(scope='col') STT
+                            th(scope='col') Tên
+                            th(scope='col') Email
+                            th(scope='col') Vai trò 
+                            th(scope='col') Hành động
+                        tbody
+                            each account, index in accounts  
+                                tr
+                                    th(scope='row') #{index + 1 + pagination.skip}
+                                    td #{account.fullName}
+                                    td #{account.email}
+                                    td 
+                                        if(account.role == "all")
+                                            button.btn.btn-primary Toàn quyền
+                                        else
+                                            button.btn.btn-info Quản lý
+                                    td
+                                        form(action=`/admin/accounts/delete/${account.id}?_method=DELETE` method="POST" style="display: inline-block;")    
+                                            button(class="btn btn-danger") Xóaz
+                        +pagination(pagination)
+                                        
+block scripts
+    script.
+      const hamBurger = document.querySelector(".toggle-btn");
+      hamBurger.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("expand");
+      });
+    script(src="/admin/js/pagination.js") 
+                    

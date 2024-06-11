@@ -1,0 +1,48 @@
+doctype html 
+html(lang='vi')
+    head 
+        title= pageTitle
+        //- link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css")
+        link(href='https://cdn.lineicons.com/4.0/lineicons.css', rel='stylesheet')
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css', rel='stylesheet', integrity='sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ', crossorigin='anonymous')
+        link(rel="stylesheet", href="/admin/css/style.css")
+        block styles
+    body 
+        //- include ../partials/slider.pug
+        .wrapper
+            aside#sidebar
+                .d-flex
+                    button.toggle-btn(type='button')
+                        i.lni.lni-grid-alt
+                    .sidebar-logo
+                        a(href='#') #{account.fullName}
+                ul.sidebar-nav
+                    li.sidebar-item
+                    a.sidebar-link(href=`${prefixAdmin}/home`)
+                        i.lni.lni-user
+                        span Thống kê
+                    li.sidebar-item
+                    a.sidebar-link(href=`${prefixAdmin}/posts`)
+                        i.lni.lni-agenda
+                        span Bài viết
+                    li.sidebar-item
+                    a.sidebar-link(href=`${prefixAdmin}/users`)
+                        i.lni.lni-protection
+                        span Người dùng
+                    if (account.role && account.role == "all")
+                        li.sidebar-item
+                        a.sidebar-link(href=`${prefixAdmin}/accounts`)
+                            i.lni.lni-layout
+                            span Cấp quyền Admin
+                .sidebar-footer
+                    a.sidebar-link(href="/admin/auth/logout")
+                        i.lni.lni-exit
+                        span Logout
+            block main
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js', integrity='sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe', crossorigin='anonymous')
+        //- script(src= "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js")
+        //- script(src= "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js")
+        block scripts
+        
+        

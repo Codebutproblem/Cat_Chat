@@ -1,0 +1,13 @@
+mixin pagination(pagination)
+    if (pagination.totalItem > 0)
+        .pagination.my-4
+            ul(class="nav-pagination")
+                if (pagination.currentPage > 1)
+                    li 
+                        button(class="pagination-button" page-number= pagination.currentPage - 1) <i class="fa-solid fa-arrow-left"></i>
+                - for(let i = pagination.startPage; i <= pagination.endPage; i++)
+                    li 
+                        button(class=`pagination-button ${pagination.currentPage == i ? "active": ""}` page-number= i) #{i}
+                if (pagination.currentPage < pagination.totalPage)
+                    li 
+                        button(class="pagination-button" page-number= pagination.currentPage + 1) <i class="fa-solid fa-arrow-right"></i>

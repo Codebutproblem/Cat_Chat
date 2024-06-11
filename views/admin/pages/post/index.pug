@@ -1,0 +1,54 @@
+extend ../../layouts/default.pug
+include  ../../mixins/pagination.pug
+block styles
+    link(rel="stylesheet", href="/admin/css/create-post.css")
+block main
+    .main
+        .container
+            h1.heading Các bài viết 
+            a.btn.btn-success.mb-3(href="/admin/posts/create") <i class="fa-solid fa-plus"></i> Thêm mới bài viêt 
+            .box-container
+                each post in posts
+                    .box
+                        .content
+                            div(class="post-box mb-3")
+                                h4(class="post-title") #{post.title}
+                                div(class="post-content mb-3") !{post.content}
+                            div(class="post-footer d-flex justify-content-between align-items-center")
+                                span(class="create-date") #{post.createdAtStr} #{post.creator ? `by ${post.creator}` : ""}
+                                .form-action.d-flex.justify-content-end
+                                    form(action=`/admin/posts/edit/${post.id}`, method="get" class="text-end")
+                                        button(class="btn btn-warning") Sửa bài
+                                    form(action=`/admin/posts/delete/${post.id}?_method=DELETE`, method="post" class="text-end ms-2")
+                                        button(class="btn btn-danger") Xóa bài
+                                
+                            
+            #load-more.d-flex.justify-content-center load more  
+         
+            
+block scripts 
+    script.
+        const hamBurger = document.querySelector(".toggle-btn");
+        hamBurger.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("expand");
+        });                    
+
+        let loadMoreBtn = document.querySelector('#load-more');
+        let currentItem = 3;
+
+        loadMoreBtn.onclick = () => {
+            let boxes = document.querySelectorAll('.container .box-container .box');
+            for (var i = currentItem; i < currentItem + 3; i++) {
+                if (boxes[i]) {
+                    boxes[i].classList.add('d-block');
+                }
+            }
+            currentItem += 3;
+
+            if (currentItem >= boxes.length) {
+                loadMoreBtn.classList.add('d-none');
+            }
+        };
+
+    script(src="/admin/js/pagination.js") 
+            

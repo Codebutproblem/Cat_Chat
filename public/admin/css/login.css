@@ -1,0 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+input,
+button {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.login--content,
+.login--form,
+.login--input {
+  display: grid;
+}
+
+.login--content {
+  height: 100vh;
+  position: relative;
+  align-items: center;
+}
+
+.login--img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.login--form {
+  position: relative;
+  background-color: hsla(244, 16%, 92%, 0.6);
+  border: 2px solid hsla(244, 16%, 92%, 0.75);
+  border-radius: 1rem;
+  padding: 3rem;
+  row-gap: 1.25rem;
+  backdrop-filter: blur(5px);
+  display: block;
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: 5rem;
+}
+
+.login--title {
+  color: hsl(244, 12%, 12%);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.login--title span {
+  color: hsl(244, 75%, 57%);
+}
+
+.login--description {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.form--div {
+  position: relative;
+  height: 52px;
+  margin-bottom: 1.5rem;
+}
+
+.login--inputs {
+  row-gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.login--input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #1a73e8;
+  outline: none;
+  background: none;
+  /* z-index: 1; */
+}
+
+.login--label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0 0.25rem;
+  color: #1a73e8;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.login--input:focus + .login--label {
+  top: -0.7rem;
+  left: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  z-index: 999;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2);
+  background-color: #1a73e8;
+}
+
+.login--input:not(:placeholder-shown).login--input:not(:focus) + .login--label {
+  top: -0.7rem;
+  left: 0.8rem;
+  z-index: 999;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.login--btn {
+  width: 100%;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+  background: linear-gradient(180deg, hsl(244, 75%, 57%), hsl(249, 64%, 47%));
+  color: #fff;
+  /* background: hsla(244, 16%, 92%, 0.6);
+  border: 2px solid hsl(244, 75%, 57%);
+  color: hsl(244, 75%, 57%);
+  box-shadow: none; */
+
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.login--back {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: hsl(244, 75%, 57%);
+}
+
+@media screen and (max-width: 360px) {
+  .login--inputs {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .login--form {
+    width: 450px;
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 1064px) {
+  .login {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  .login--content {
+    width: 1024px;
+    height: 600px;
+  }
+  .login--img {
+    border-radius: 3.5rem;
+    box-shadow: 0 24px 48px hsla(244, 75%, 36%, 0.45);
+  }
+  .login--form {
+    justify-self: flex-end;
+    margin-right: 4.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .login--content {
+    height: 700px;
+  }
+  .login--form {
+    row-gap: 2rem;
+    padding: 3rem;
+    border-radius: 1.25rem;
+    border: 2.5px solid hsla(244, 16%, 92%, 0.75);
+  }
+  .login--description,
+  .login--label,
+  .login--button {
+    font-size: 1rem;
+  }
+  .login--inputs {
+    row-gap: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .login--input {
+    border: 2.5px solid hsl(244, 4%, 36%);
+    padding: 1rem;
+    font-size: 0.75rem;
+  }
+  .login--input:focus,
+  .login--input:valid {
+    border: 2.5px solid hsl(244, 75%, 57%);
+  }
+  .login--button {
+    padding-block: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .login--back {
+    border: 2.5px solid hsl(244, 75%, 57%);
+  }
+}

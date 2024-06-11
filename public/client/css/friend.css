@@ -1,0 +1,297 @@
+
+.main{
+    padding: 40px 0;
+}
+.main > h1{
+    text-align: center;
+    color: var(--color-blue);
+    margin-bottom: 32px;
+}
+.main .friend{
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main .form-search{
+    max-width:400px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #fff;
+}
+@media(max-width: 440px){
+    .main .form-search{
+        margin: 0 20px;
+    }
+}
+.main .form-search .input-search-user{
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #fff;
+    line-height: 30px;
+    padding: 2px 0;
+    padding-left: 15px;
+    padding-right: 40px;
+    font-size: 20px;
+}
+.main .form-search button{
+    border: none;
+    background: #555;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.main .form-search button i{
+    line-height: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.main .inner-users{
+    padding: 0 20px;
+    margin-top: 50px;
+}
+.main .inner-users .box-user{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 10px 10px;
+    border-radius: 10px;
+    position: relative;
+}
+.main .inner-users .box-user > span{
+    width: 12px;
+    height: 12px;
+    background: #00d800;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    display: none;
+}
+.main .inner-users .box-user .online{
+    display: block;
+}
+.main .inner-users .inner-avatar{
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+.main .inner-users .inner-avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main .inner-users .inner-name{
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+    width: 95px;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.box-info-user{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000053;
+    z-index: 100;
+}
+
+.box-info-user .main-box{
+    width: 450px;
+    background: var(--color-body);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    color: #fff;
+}
+
+.box-info-user .box-head{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    position: relative;
+}
+.box-info-user .main-box [close-button]{
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+.box-info-user .box-head{
+    display: flex;
+    align-items: center;
+}
+.box-info-user .box-head .inner-img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+    margin-left: 15px;
+    cursor: pointer;
+    position: relative;
+}
+.box-info-user .box-head .inner-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box-info-user .box-head .inner-name{
+    margin-left: 20px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+}
+.box-info-user .box-head .inner-name .male-icon{
+    font-size: 24px;
+    margin-left: 6px;
+    color: #0581d3;
+}
+.box-info-user .box-head .inner-name .female-icon{
+    font-size: 24px;
+    margin-left: 6px;
+    color: #f007dd;
+}
+.box-info-user .box-body{
+    padding: 10px;
+}
+.box-info-user .box-body .description{
+    color: #fff;
+    background: transparent;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    padding: 10px;
+    overflow: auto;
+}
+.box-info-user.hidden{
+    display: none;
+}
+
+
+
+
+.main .inner-button{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.main .inner-button.cancel .add-btn,
+.main .inner-button.cancel .accept-btn, 
+.main .inner-button.cancel .refuse-btn,
+.main .inner-button.cancel .unfriend-btn{
+    display: none;
+}
+.main .inner-button.add .cancel-btn,
+.main .inner-button.add .accept-btn, 
+.main .inner-button.add .refuse-btn,
+.main .inner-button.add .unfriend-btn{
+    display: none;
+}
+.main .inner-button.accept .cancel-btn,
+.main .inner-button.accept .add-btn,
+.main .inner-button.accept .refused-btn,
+.main .inner-button.accept .accepted-btn,
+.main .inner-button.accept .unfriend-btn{
+    display: none;
+}
+.main .inner-button.refused .accept-btn,
+.main .inner-button.refused .refuse-btn,
+.main .inner-button.refused .accepted-btn{
+    display: none;
+}
+.main .inner-button.accepted .accept-btn,
+.main .inner-button.accepted .refuse-btn,
+.main .inner-button.accepted .refused-btn{
+    display: none;
+}
+.main .inner-button.unfriend .accept-btn,
+.main .inner-button.unfriend .add-btn,
+.main .inner-button.unfriend .cancel-btn,
+.main .inner-button.unfriend .refuse-btn,
+.main .inner-button.unfriend .unfriended-btn{
+    display: none;
+}
+.main .inner-button.unfriended .unfriend-btn,
+.main .inner-button.unfriended .chat-btn{
+    display: none;
+}
+
+.main .inner-button.cancel .cancel-btn{
+    display: inline-block;
+}
+.main .inner-button.add .add-btn{
+    display: inline-block;
+}
+.main .inner-button.accept .accept-btn,
+.main .inner-button.accept .refuse-btn{
+    display: inline-block;
+}
+.main .inner-button.refused .refused-btn{
+    display: inline-block;
+}
+.main .inner-button.accepted .accepted-btn{
+    display: inline-block;
+}
+.main .inner-button.unfriend .unfriend-btn{
+    display: inline-block;
+}
+.main .inner-button.unfriended .unfriended-btn{
+    display: inline-block;
+}
+
+.inner-users .pagination{
+    margin: 0 auto;
+    width: 200px;
+    min-width: 200px;
+}
+.inner-users .pagination .nav-pagination{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+.inner-users .pagination .nav-pagination li{
+    margin: 0 5px;
+}
+.inner-users .pagination .nav-pagination li .pagination-button{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+.inner-users .pagination .nav-pagination li .pagination-button:hover,
+.inner-users .pagination .nav-pagination li .pagination-button.active{
+    background: var(--color-aqua);
+    border-color: var(--color-aqua);
+    color: #333;
+}

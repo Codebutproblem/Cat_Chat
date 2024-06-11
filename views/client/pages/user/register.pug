@@ -1,0 +1,71 @@
+extends ../../layouts/default.pug
+
+block style 
+    link(rel="stylesheet", href="/client/css/user.css")
+
+block main
+    .container
+        .row.justify-content-center
+            .col-xl-6
+                div(class="user-box login-box mt-5")
+                    h1(class="text-center") Register
+                    form(
+                        action="/user/register"
+                        method="POST"
+                    )
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="text"
+                                name="fullName"
+                                id="login-fullName"
+                                required
+                            )
+                            div(class="label") Fullname
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="text"
+                                name="email"
+                                id="login-email"
+                                required
+                            )
+                            div(class="label") Email
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="password"
+                                name="password"
+                                id="login-password"
+                                required
+                            )
+                            div(class="label") Password
+                        div(class="mt-3 gender-form d-flex")
+                            div Giới tính: 
+                            div(class="inner-gender-box ms-3")
+                                input(
+                                    class="radio-input"
+                                    type="radio"
+                                    name="gender"
+                                    id="male-gender"
+                                    value="male"
+                                    checked
+                                    required
+                                )
+                                label(for="male-gender" class="ms-1") Male
+                            div(class="inner-gender-box ms-3")
+                                input(
+                                    class="radio-input"
+                                    type="radio"
+                                    name="gender"
+                                    id="female-gender"
+                                    value="female"
+                                    required
+                                )
+                                label(for="female-gender" class="ms-1") Female 
+                        
+                        div(class="my-3")
+                            button(type="submit" class="btn btn-primary w-100") Submit
+block script 
+    script(src="/client/js/user.js")   
+                          

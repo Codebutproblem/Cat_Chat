@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.main-part{
+    margin-top: 20px;
+}
+.main-part .notification-box{
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 20px;
+}
+.main-part h4{
+    border-bottom: 1px solid #fff;
+    padding: 4px 2px;
+    color: var(--color-aqua);
+    font-style: italic;
+}
+.main-part .notification-content{
+    font-family: "Roboto", sans-serif;
+}
+.main-part .notification-footer span{
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+}

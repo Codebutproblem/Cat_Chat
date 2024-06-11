@@ -1,0 +1,85 @@
+extend ../../layouts/default.pug
+block styles 
+    link(rel="stylesheet", href="/admin/css/home.css")
+
+block main
+    .main
+      nav.navbar.navbar-expand.px-3.border-bottom
+        button#sidebar-toggle.btn(type='button')
+          
+        .navbar-collapse.navbar
+          ul.navbar-nav
+            li.nav-item.dropdown
+              a.nav-icon.pe-md-0(href='#')
+                img(src='#', alt='')
+              .dropdown-menu.dropdown-menu-end
+                a.dropdown-item(href='#')
+                a.dropdown-item(href='#')
+                a.dropdown-item(href='#')
+      main.content.px-3.py-2
+        .container-fluid
+          .mb-3
+            h4 Bảng điều khiển quản lý
+          .row
+            .col-12.col-md-6.d-flex
+              .card.flex-fill.border-0.illustration
+                .card-body.p-0.d-flex.flex-fill
+                  .row.g-0.w-100
+                    .col-6
+                      .p-3.m-1
+                        h4 Chào mừng bạn đã quay trở lại, quản lý
+                        p.mb-0 #{account.fullName}
+                    .col-6.align-self-end.text-end
+                      img.img-fluid.illustration-img(src='image/customer-support.jpg', alt='')
+            .col-12.col-md-6.d-flex
+              .card.flex-fill.border-0
+                .card-body.py-4
+                  .d-flex.align-items-start
+                    .flex-grow-1
+                      h4.mb-2
+                        | #{statistic.userNumber}
+                      p.mb-2
+                        | Tổng số người dùng    
+                      .mb-0
+                        span.badge.text-success.me-2
+                          |
+                        span.text-muted
+                          | Kể từ lúc chạy sản phẩm
+          // Table Element
+          .card.border-0
+            .card-header
+              h5.card-title
+                | Người dùng đăng kí gần đây
+              h6.card-subtitle.text-muted
+                | 
+            .card-body
+              table.table
+                thead
+                  tr
+                    th(scope='col') STT
+                    th(scope='col') Ảnh đại điện
+                    th(scope='col') Tên
+                    th(scope='col') Email
+                    th(scope='col') Trạng thái 
+                tbody
+                    each user, index in users 
+                        tr
+                            th(scope='row') #{index + 1}
+                            td 
+                                img(src=user.avatar, alt=user.name, style='width: 50px; height: 50px; border-radius: 50%;')
+                            td #{user.fullName}
+                            td #{user.email}
+                            td 
+                                if (user.statusOnline == "online")
+                                    button.btn.btn-success(type="button") Online
+                                else
+                                    button.btn.btn-secondary(type="button") Offline
+        
+      
+
+block scripts 
+    script.
+      const hamBurger = document.querySelector(".toggle-btn");
+      hamBurger.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("expand");
+      });

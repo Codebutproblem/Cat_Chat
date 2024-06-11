@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-info-user.pug
+include ../../mixins/pagination.pug
+block style 
+    link(rel="stylesheet", href="/client/css/friend.css")
+block main
+    .main 
+        div(user-id=user.id)
+        h1 Friend Request
+        .friend 
+            .inner-search
+                form(action="" class="form-search")
+                    input(type="text" name="keyword" class="input-search-user" id="input-search-user" placeholder="Tìm kiếm...")
+                    button(type="submit") 
+                        i(class="fa-solid fa-magnifying-glass") 
+
+            .inner-users
+                .accept-friend-box.row.align-items-stretch
+                    each user in users 
+                        .col-md-4.col-sm-6
+                            .box-user 
+                                .inner-avatar 
+                                    img(src=user.avatar)
+                                .inner-info 
+                                    div(class="inner-name") #{user.fullName}
+                                    div(class="inner-button accept" data-user-id=user.id) 
+                                        button(class="accept-btn btn btn-sm btn-success") Accept
+                                        button(class="refuse-btn btn btn-sm btn-danger ms-2") Refuse
+                                        button(class="refused-btn btn btn-sm btn-secondary" disabled) Refused
+                                        button(class="accepted-btn btn btn-sm btn-primary" disabled) Accepted
+                if (pagination.totalPage > 1)
+                    +pagination(pagination)
+    each user in users
+        +box-info-user(user)                                
+block script     
+    script(src="/client/js/friend.js") 
+            

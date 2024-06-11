@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+block style 
+    link(rel="stylesheet", href="/client/css/user.css")
+
+block main
+    .container
+        .row.justify-content-center
+            .col-xl-6
+                div(class="user-box login-box mt-5")
+                    h1(class="text-center") Forgot Password
+                    form(
+                        action="/user/password/forgot"
+                        method="POST"
+                    )
+                        div(class="form-box")
+                            input(
+                                class="form-input"
+                                type="text"
+                                name="email"
+                                id="email-forgot"
+                                required
+                            )
+                            div(class="label") Email
+                        div(class="mb-3 form-box")
+                            button(type="submit" class="btn btn-primary w-100") Next step
+block script 
+    script(src="/client/js/user.js")  
+                          

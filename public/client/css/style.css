@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Coustard:wght@400;900&family=Madimi+One&display=swap');
+:root{
+    --color-blue: #2f7af1;
+    --color-aqua: #0ac5f4;
+    --color-body: #1B2838;
+    --color-main-1: #171D25;
+}
+
+body{
+    font-family: "Madimi One", sans-serif;
+    background: var(--color-body);
+    /* overflow: hidden; */
+}
+.w-48{
+    width: 48%;
+}
+.ml-70{
+    margin-left: 70px;
+}
+
+[show-alert]{
+    width: 25%;
+    position: fixed;
+    left: 20px;
+    bottom: 30px;
+    text-align: center;
+}
+[show-alert].alert-hidden{
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+@keyframes alert-hidden {
+    from{
+        bottom: 30px;
+    }
+    to{
+        bottom: -50%;
+        display: none;
+    }
+}
+/* Header */
+.header{
+    padding: 20px 10px;
+    border-bottom: 1px solid #444;
+    background-color: var(--color-main-1);
+}
+.header .inner-logo a{
+    text-decoration: none;
+}
+.header .inner-logo a .img-logo{
+    min-width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 25px;
+    border: 3px solid #aaa;
+}
+.header .inner-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s ease;
+}
+.header .inner-logo a:hover .img-logo img{
+    transform: scale(1.2);
+}
+.header .inner-logo h1{
+    margin-bottom: 0;
+    font-size: 35px;
+    color: var(--color-blue);
+    transition: all 0.2s ease;
+}
+.header .inner-logo a:hover h1{
+    color: var(--color-aqua);
+}
+.header .inner-login a{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 15px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    transition: all 0.2s ease;
+    margin: 3px 10px;
+}
+.header .inner-login .login-btn:hover{
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+}
+.header .inner-login .register-btn{
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+}
+.header .inner-login .register-btn:hover{
+    background: var(--color-aqua);
+    border-color: var(--color-aqua);
+}
+.header .friend-action .nav-menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.header .friend-action .nav-menu li{
+    margin: 0 14px;
+}
+.header .friend-action .nav-menu li a{
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    font-size: 18px;
+    color: white;
+    transition: all 0.2s ease;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+.header .friend-action .nav-menu li a.menu-text-aqua{
+    color: var(--color-aqua);
+}
+.header .friend-action .nav-menu li a:hover{
+    color: var(--color-aqua);
+}
+.header .friend-action a span{
+    position: absolute;
+    display: inline-block;
+    background: red;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    top: -8px;
+    right: -14px;
+}
+
+
+.header .inner-user{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+    cursor: pointer;
+}
+.header .inner-user .avatar{
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    overflow: hidden;
+}
+.header .inner-user .avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.header .inner-user > div{
+    position: relative;
+}
+.header .inner-user .list-action{
+    min-width: 200px;
+    position: absolute;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #363636;
+    top: 110%;
+    right: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+}
+.header .inner-user .list-action.show-list{
+    display: block;
+}
+.header .inner-user .list-action li a{
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.1s ease;
+}
+.header .inner-user .list-action li a:hover{
+    background: #585555;
+}
+.header .inner-user .list-action li:last-child a{
+    border-bottom: 0px;
+}
+.header .inner-user span {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.header .inner-login{
+    text-align: end;
+}
+
+@media (max-width:992px){
+    .header .friend-action .nav-menu{
+        justify-content: center;
+    }
+    .header .inner-logo{
+        justify-content: center;
+    }
+    .header .inner-user{
+        justify-content: center;
+    }
+    .header .inner-user .list-action{
+        top: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+@media (max-width:768px){
+    .header .inner-logo{
+        margin-bottom: 40px;
+    }
+    .header .inner-logo h1{
+        display: none;
+    }
+    .header .inner-logo a .img-logo{
+        min-width: 120px;
+        height: 120px;
+    }
+    .header .inner-user .avatar{
+        min-width: 80px;
+        height: 80px;
+    }
+    .header .inner-login{
+        text-align: center;
+    }
+    .header .friend-action .nav-menu{
+        margin-bottom: 24px;
+    }
+}
+@media (max-width:576px){
+    .header .friend-action .nav-menu{
+        flex-direction: column;
+    }
+    .header .friend-action .nav-menu li{
+        margin-bottom: 12px;
+    }
+    .header .friend-action .nav-menu li a{
+        font-size: 22px;
+    }
+    .header .inner-user span{
+        display: none;
+    }
+}
+
+.box-user-setting {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000053;
+    z-index: 999;
+}
+.box-user-setting .main-box{
+    width: 450px;
+    background: var(--color-body);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    color: #fff;
+}
+.box-user-setting .box-head{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    position: relative;
+}
+.box-user-setting .main-box [close-button]{
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+.box-user-setting.hidden{
+    display: none;
+}
+
+.box-user-setting .box-head{
+    display: flex;
+    align-items: center;
+}
+.box-user-setting .box-head .inner-img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+    margin-left: 15px;
+    cursor: pointer;
+    position: relative;
+}
+.box-user-setting .box-head .inner-img .box-select{
+    background: #bbbbbb4e;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+    text-align: center;
+    line-height: 80px;
+    font-size: 20px;
+}
+.box-user-setting .box-head .inner-img:hover .box-select{
+    display: block;
+}
+.box-user-setting .box-head .inner-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box-user-setting .box-head .inner-name{
+    margin-left: 20px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+.box-user-setting .box-body{
+    padding: 10px;
+}
+.box-user-setting .box-body input[type="text"],
+.box-user-setting .box-body textarea{
+    color: #fff;
+    background: transparent;
+}
+.box-user-setting .box-body input[type="text"]::placeholder{
+    color: #ffffffc0;
+}
+.box-user-setting .box-body .change-password{
+    margin-right: auto;
+}

@@ -1,0 +1,34 @@
+extend ../../layouts/default.pug
+block styles 
+    link(rel="stylesheet", href="/admin/css/create-account.css")
+block main
+    .main   
+        .container
+            .card-header 
+                h3.mb-3(class="card-title") Tạo tài khoản
+            .card-body 
+                form(action="/admin/accounts/create" method="POST")
+                    .mb-3
+                        label(for="fullName") Tên
+                        input(type="text" name="fullName" class="form-control" id="fullName" placeholder="Nhập tên" required)
+                    .mb-3
+                        label(for="email") Email
+                        input(type="email" name="email" class="form-control" id="email" placeholder="Nhập email" required)
+                    .mb-3
+                        label(for="password") Mật khẩu
+                        input(type="password" name="password" class="form-control" id="password" placeholder="Nhập mật khẩu" required)
+                    .mb-3
+                        label(for="role") Vai trò
+                        select(name="role" class="form-control" id="role" required)
+                            option(value="all") Toàn quyền
+                            option(value="manager") Quản lý
+                    .mb-3
+                        button(type="submit" class="btn btn-primary") Tạo tài khoản
+
+
+block scripts 
+    script.
+        const hamBurger = document.querySelector(".toggle-btn");
+        hamBurger.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("expand");
+        });    

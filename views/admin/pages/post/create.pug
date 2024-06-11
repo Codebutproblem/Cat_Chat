@@ -1,0 +1,28 @@
+extend ../../layouts/default.pug
+block styles
+    link(rel="stylesheet", href="/admin/css/create-post.css")
+block main
+    .main
+        .container
+            .card-header
+                h3(class="card-title") Bài viết tới người dùng 
+            .card-body
+                form(action="/admin/posts/create", method="post")
+                    div(class="mb-3")
+                        label(for="", class="form-label") Tiêu đề
+                        input(type="text" name="title" id="title" class="form-control")
+                    div(class="mb-3")
+                        label(for="content", class="form-label") Nội dung
+                        textarea(class="form-control tinymce-textarea" name="content" id="content")
+                    div(class="mb-3") 
+                        button(class="btn btn-primary") Đăng bài
+block scripts
+    script(src="/tinymce/tinymce.min.js")
+    script(src="/admin/js/tinymce-config.js") 
+    script.
+        const hamBurger = document.querySelector(".toggle-btn");
+        hamBurger.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("expand");
+        });    
+             
+            
